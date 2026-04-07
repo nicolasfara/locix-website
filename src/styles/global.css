@@ -8,5 +8,89 @@
 
 @theme {
   --font-sans: 'Atkinson Hyperlegible', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-mono: 'Atkinson Hyperlegible', sans-serif;
+}
+
+html[data-has-hero] {
+  --sl-content-width: 200rem;
+}
+
+@layer components {
+  .content-panel .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 32%, transparent);
+    border-radius: 1.75rem;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    background:
+      radial-gradient(circle at top right, color-mix(in srgb, var(--sl-color-text-accent) 14%, transparent), transparent 34%),
+      linear-gradient(180deg, color-mix(in srgb, var(--sl-color-bg) 92%, white), color-mix(in srgb, var(--sl-color-bg) 96%, black));
+    box-shadow:
+      0 1px 0 color-mix(in srgb, white 5%, transparent) inset,
+      0 28px 60px -36px color-mix(in srgb, black 40%, transparent);
+  }
+
+  [data-theme='dark'] .content-panel .hero {
+    background:
+      radial-gradient(circle at top right, color-mix(in srgb, var(--sl-color-text-accent) 22%, transparent), transparent 36%),
+      linear-gradient(180deg, color-mix(in srgb, var(--sl-color-bg) 90%, white), color-mix(in srgb, var(--sl-color-bg) 98%, black));
+    box-shadow:
+      0 1px 0 color-mix(in srgb, white 8%, transparent) inset,
+      0 28px 60px -36px color-mix(in srgb, black 72%, transparent);
+  }
+
+  .content-panel .hero::after {
+    content: '';
+    position: absolute;
+    inset: auto auto -5rem -4rem;
+    width: 12rem;
+    height: 12rem;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--sl-color-text-accent) 12%, transparent);
+    filter: blur(70px);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .content-panel .hero > img {
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+    border-radius: 1.5rem;
+    border: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 30%, transparent);
+    background:
+      radial-gradient(circle at top, color-mix(in srgb, var(--sl-color-text-accent) 12%, transparent), transparent 58%),
+      color-mix(in srgb, var(--sl-color-bg) 88%, white);
+    box-shadow:
+      0 20px 40px -28px color-mix(in srgb, black 45%, transparent),
+      0 1px 0 color-mix(in srgb, white 14%, transparent) inset;
+  }
+
+  [data-theme='dark'] .content-panel .hero > img {
+    background:
+      radial-gradient(circle at top, color-mix(in srgb, var(--sl-color-text-accent) 18%, transparent), transparent 58%),
+      color-mix(in srgb, var(--sl-color-bg) 92%, white);
+  }
+
+  .content-panel .hero .tagline {
+    max-width: 48rem;
+  }
+
+  .content-panel .hero .actions {
+    gap: 0.875rem;
+  }
+
+  .content-panel .hero .actions .sl-link-button {
+    border-radius: 9999px;
+  }
+
+  .content-panel .hero .copy > * {
+    max-width: none;
+  }
+
+  @media (min-width: 50rem) {
+    .content-panel .hero {
+      grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.85fr);
+      gap: 4rem;
+    }
+  }
 }

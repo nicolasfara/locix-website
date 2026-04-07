@@ -4,10 +4,15 @@ description: Capability-based Scala framework for typed multiparty distributed p
 template: splash
 hero:
   title: |
-    <span class="block font-black tracking-tight">
-      Typed multiparty distributed programming in Scala.
+    <span class="block max-w-[14ch] text-[clamp(3rem,6vw,5.75rem)] leading-[0.94] font-black tracking-[-0.04em]">
+      Typed multiparty
+      <span class="text-[var(--sl-color-text-accent)]">distributed</span>
+      programming in Scala.
     </span>
-  tagline: LociX is a capability-based framework for expressing where code runs, which peers communicate, and how values move across a distributed topology.
+  tagline: |
+    <span class="block max-w-2xl text-base leading-7 text-[var(--sl-color-gray-2)] sm:text-lg">
+      LociX is a capability-based framework for expressing where code runs, which peers communicate, and how values move across a distributed topology.
+    </span>
   image:
     dark: ../../assets/locix-logo-dark.svg
     light: ../../assets/locix-logo-light.svg
@@ -15,10 +20,11 @@ hero:
   actions:
     - text: View on GitHub
       link: https://github.com/nicolasfara/locix
-      icon: right-arrow
+      icon: github
     - text: Browse examples
-      link: https://github.com/nicolasfara/locix/tree/main/examples/src/io/github/locix
+      link: https://github.com/nicolasfara/locix/tree/master/examples/src/io/github/party
       variant: minimal
+      icon: external
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
