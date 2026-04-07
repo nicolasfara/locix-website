@@ -5,23 +5,17 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://locix.github.io',
 	integrations: [
 		starlight({
-			title: 'Docs with Tailwind',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
-			sidebar: [
-				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
-					],
-				},
-				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
-				},
-			],
+			title: 'Locix',
+			logo: {
+				dark: './src/assets/locix-logo-dark.svg',
+				light: './src/assets/locix-logo-light.svg',
+				alt: 'LociX logo',
+			},
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/nicolasfara/locix' }],
+			sidebar: [],
 			customCss: ['./src/styles/global.css'],
 		}),
 	],
