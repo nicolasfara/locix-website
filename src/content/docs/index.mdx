@@ -22,30 +22,110 @@ hero:
       link: https://github.com/nicolasfara/locix
       icon: github
     - text: Browse examples
-      link: https://github.com/nicolasfara/locix/tree/master/examples/src/io/github/party
+      link: https://github.com/nicolasfara/locix/tree/main/examples/src/io/github/locix
       variant: minimal
       icon: external
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Code, Tabs, TabItem } from '@astrojs/starlight/components';
 
-## Next steps
+export const choreographyExample = `object PingPong:
+  type Pinger <: { type Tie <: Single[Ponger] }
+  type Ponger <: { type Tie <: Single[Pinger] }
 
-<CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
-	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
-	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
-</CardGrid>
+  def pingPong(using Network, Placement, Choreography) = Choreography:
+    var c = 0
+    while c < 5 do
+      val onPinger = on[Pinger]:
+        val message = s"Ping $c"
+        println(s"Pinger sending message: $message")
+        message
+
+      val messageOnPonger = comm[Pinger, Ponger](onPinger)
+
+      on[Ponger]:
+        val msg = take(messageOnPonger)
+        println(s"Pong received message: $msg")
+
+      c += 1
+      Thread.sleep(500)`;
+
+export const multitierExample = `object MasterWorker:
+  type Master <: { type Tie <: Multiple[Worker] }
+  type Worker <: { type Tie <: Single[Master] }
+
+  class Task(input: Int):
+    def exec(): Int = input * 2
+
+  def allocateTasks(using Network) =
+    val inputs = List(1, 2, 3, 4, 5)
+    val workers = reachablePeersOf[Worker]
+    workers
+      .zip(inputs.grouped((inputs.size + workers.size - 1) / workers.size))
+      .toMap
+      .map:
+        case (worker, tasks) => worker -> tasks.map(new Task(_))
+
+  def taskAllocation(using n: Network, p: Placement, m: Multitier) = Multitier:
+    val allocation = on[Master] { allocateTasks }
+
+    val workerResults = on[Worker]:
+      val localAddress = peerAddress
+      asLocal(allocation)
+        .filter(_._1 == localAddress)
+        .flatMap(_._2)
+        .map(task => task.exec())
+
+    on[Master]:
+      val collectedResults = asLocalAll(workerResults).values.flatMap(_.toList).toList
+      println(s"Master collected results: $collectedResults")`;
+
+export const collectiveExample = `object AggregateCounter:
+  type Smartphone <: { type Tie <: Multiple[Smartphone] }
+
+  private def counter(using Network, PlacementType^, Collective) =
+    val counter = Collective[Smartphone](1.second):
+      rep(0)(_ + 1)
+
+    on[Smartphone]:
+      val signal = take(counter)
+      signal.subscribe { value =>
+        println(s"Device \${peerAddress} has count: $value")
+      }
+
+    Thread.sleep(5000)`;
+
+## Explore The Paradigms
+
+<section class="models-showcase not-content">
+  <div class="models-showcase__intro">
+    <p class="models-showcase__eyebrow">Runnable examples from the main repository</p>
+    <h3>One framework, three ways to describe distributed behavior.</h3>
+    <p>
+      LociX lets you model communication flows, colocated computation, and neighborhood-aware
+      programs with dedicated primitives. Switch between the tabs to compare the actual examples
+      from the repository side by side.
+    </p>
+  </div>
+
+  <Tabs syncKey="locix-paradigms">
+    <TabItem label="Choreography">
+      <p class="models-showcase__tab-copy">
+        Explicit message passing in program order for peer-to-peer interaction flows.
+      </p>
+      <Code code={choreographyExample} lang="scala" />
+    </TabItem>
+    <TabItem label="Multitier">
+      <p class="models-showcase__tab-copy">
+        Placement-aware task distribution where computation stays close to the peer that runs it.
+      </p>
+      <Code code={multitierExample} lang="scala" />
+    </TabItem>
+    <TabItem label="Collective">
+      <p class="models-showcase__tab-copy">
+        Neighborhood-style evolving state for distributed systems that react over time.
+      </p>
+      <Code code={collectiveExample} lang="scala" />
+    </TabItem>
+  </Tabs>
+</section>

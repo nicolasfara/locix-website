@@ -14,6 +14,9 @@ export default defineConfig({
 				light: './src/assets/locix-logo-light.svg',
 				alt: 'LociX logo',
 			},
+			expressiveCode: {
+				themes: ['github-dark-dimmed', 'github-light'],
+			},
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/nicolasfara/locix' }],
 			sidebar: [],
 			customCss: ['./src/styles/global.css'],
