@@ -47,11 +47,11 @@ const collectiveExample = `object AggregateCounter:
         println(s"Device \${peerAddress} has count: $value")`;
 ---
 
-<section class="models-showcase not-content">
+<section class="models-showcase home-card home-panel not-content">
   <div class="models-showcase__intro">
-    <p class="models-showcase__eyebrow">Runnable examples from the main repository</p>
-    <h3>Three paradigms remain distinct, but they no longer live in separate worlds.</h3>
-    <p>
+    <span class="home-eyebrow">Runnable examples from the main repository</span>
+    <h3 class="home-title">Three paradigms remain distinct, but they no longer live in separate worlds.</h3>
+    <p class="home-body">
       The isolated examples below still matter because each paradigm keeps its own vocabulary.
       LociX is interesting because these pieces can also be composed in the same typed artifact.
     </p>
@@ -60,7 +60,7 @@ const collectiveExample = `object AggregateCounter:
   <div class="models-showcase__tabs">
     <Tabs syncKey="locix-paradigms">
       <TabItem label="Choreography">
-        <p class="models-showcase__tab-copy">
+        <p class="models-showcase__tab-copy home-lead">
           Use explicit communication terms such as <code>comm</code>, <code>broadcast</code>, and
           <code>gather</code> when the interaction protocol itself is the central object you want to read
           and reason about.
@@ -68,14 +68,14 @@ const collectiveExample = `object AggregateCounter:
         <ResponsiveCode code={choreographyExample} lang="scala" />
       </TabItem>
       <TabItem label="Multitier">
-        <p class="models-showcase__tab-copy">
+        <p class="models-showcase__tab-copy home-lead">
           Use <code>on</code>, <code>asLocal</code>, and <code>asLocalAll</code> when architectural placement
           and typed cross-tier data access are the key concerns.
         </p>
         <ResponsiveCode code={multitierExample} lang="scala" />
       </TabItem>
       <TabItem label="Collective">
-        <p class="models-showcase__tab-copy">
+        <p class="models-showcase__tab-copy home-lead">
           Use <code>rep</code>, <code>nbr</code>, and related collective operators when local device state
           should evolve from neighboring context rather than point-to-point protocols.
         </p>
@@ -88,48 +88,15 @@ const collectiveExample = `object AggregateCounter:
 <style>
   .models-showcase {
     margin-top: clamp(2.5rem, 4vw, 4rem);
-    border: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 34%, transparent);
-    border-radius: 1.75rem;
-    padding: clamp(1.25rem, 3vw, 2.25rem);
-    background:
-      radial-gradient(circle at top left, color-mix(in srgb, var(--sl-color-text-accent) 10%, transparent), transparent 30%),
-      linear-gradient(180deg, color-mix(in srgb, var(--sl-color-bg) 94%, white), color-mix(in srgb, var(--sl-color-bg) 97%, black));
-    box-shadow:
-      0 1px 0 color-mix(in srgb, white 5%, transparent) inset,
-      0 28px 60px -40px color-mix(in srgb, black 42%, transparent);
-  }
-
-  :global([data-theme='dark']) .models-showcase {
-    background:
-      radial-gradient(circle at top left, color-mix(in srgb, var(--sl-color-text-accent) 16%, transparent), transparent 30%),
-      linear-gradient(180deg, color-mix(in srgb, var(--sl-color-bg) 92%, white), color-mix(in srgb, var(--sl-color-bg) 98%, black));
+    --home-card-padding: clamp(1.25rem, 3vw, 2.25rem);
+    --home-card-accent-size: 30%;
+    --home-card-bg-from: color-mix(in srgb, var(--sl-color-bg) 94%, white);
+    --home-card-bg-to: color-mix(in srgb, var(--sl-color-bg) 97%, black);
   }
 
   .models-showcase__intro {
     max-width: 50rem;
     margin-bottom: 1.5rem;
-  }
-
-  .models-showcase__eyebrow {
-    margin: 0 0 0.65rem;
-    color: var(--sl-color-text-accent);
-    text-transform: uppercase;
-    letter-spacing: 0.17em;
-    font-size: 0.76rem;
-    font-weight: 700;
-  }
-
-  .models-showcase__intro h3 {
-    margin: 0;
-    font-size: clamp(1.45rem, 2.5vw, 2.2rem);
-    line-height: 1.06;
-    letter-spacing: -0.03em;
-  }
-
-  .models-showcase__intro p:last-child {
-    margin: 0.85rem 0 0;
-    color: var(--sl-color-gray-2);
-    line-height: 1.55;
   }
 
   .models-showcase__tabs {
@@ -165,14 +132,5 @@ const collectiveExample = `object AggregateCounter:
   .models-showcase__tabs :global([role='tabpanel']) {
     min-width: 0;
     margin-top: 1.25rem;
-  }
-
-  .models-showcase__tab-copy {
-    margin: 0 0 1.1rem;
-    color: color-mix(in srgb, var(--sl-color-white) 82%, var(--sl-color-gray-2));
-    font-size: 1.02rem;
-    font-weight: 500;
-    line-height: 1.55;
-    letter-spacing: -0.01em;
   }
 </style>

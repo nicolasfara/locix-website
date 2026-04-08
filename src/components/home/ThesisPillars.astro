@@ -1,42 +1,43 @@
-<section class="thesis-pillars not-content">
-  <article>
-    <p class="thesis-pillars__label">Multitier</p>
-    <h3>Where computation lives</h3>
-    <p>
-      Place code and data explicitly across peers such as clients, servers, dashboards, edge nodes,
-      and devices.
-    </p>
-  </article>
-  <article>
-    <p class="thesis-pillars__label">Choreography</p>
-    <h3>Deadlock-free peer interaction</h3>
-    <p>
-      Describe cross-host communication in program order instead of scattering message handlers,
-      callbacks, and protocol state throughout the codebase.
-    </p>
-  </article>
-  <article>
-    <p class="thesis-pillars__label">Aggregate</p>
-    <h3>Collective-adaptive behaviors</h3>
-    <p>
-      Model ensembles of devices as collective computations over local observations, time, and
-      neighboring peers.
-    </p>
-  </article>
-  <article class="thesis-pillars__foundation">
-    <p class="thesis-pillars__label">Shared foundation</p>
-    <h3>Capabilities + placement types</h3>
-    <p>
-      The paper's core idea is that paradigm-specific operations can be guarded by capabilities,
-      while placement types regulate where values live and how they move between peers.
-    </p>
-  </article>
+---
+const pillars = [
+  {
+    label: 'Multitier',
+    title: 'Where computation lives',
+    body: 'Place code and data explicitly across peers such as clients, servers, dashboards, edge nodes, and devices.',
+  },
+  {
+    label: 'Choreography',
+    title: 'Deadlock-free peer interaction',
+    body: 'Describe cross-host communication in program order instead of scattering message handlers, callbacks, and protocol state throughout the codebase.',
+  },
+  {
+    label: 'Aggregate',
+    title: 'Collective-adaptive behaviors',
+    body: 'Model ensembles of devices as collective computations over local observations, time, and neighboring peers.',
+  },
+  {
+    label: 'Shared foundation',
+    title: 'Capabilities + placement types',
+    body: "The paper's core idea is that paradigm-specific operations can be guarded by capabilities, while placement types regulate where values live and how they move between peers.",
+    featured: true,
+  },
+];
+---
+
+<section class="thesis-pillars home-grid not-content">
+  {
+    pillars.map(({ label, title, body, featured }) => (
+      <article class:list={['home-card', { 'thesis-pillars__foundation': featured }]}>
+        <span class="home-eyebrow">{label}</span>
+        <h3 class="home-title">{title}</h3>
+        <p class="home-body">{body}</p>
+      </article>
+    ))
+  }
 </section>
 
 <style>
   .thesis-pillars {
-    display: grid;
-    gap: 1rem;
     margin-top: 1.5rem;
   }
 
@@ -46,46 +47,12 @@
     }
   }
 
-  .thesis-pillars article {
-    border: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 34%, transparent);
-    border-radius: 1.4rem;
-    padding: 1.2rem;
-    background:
-      radial-gradient(circle at top left, color-mix(in srgb, var(--sl-color-text-accent) 8%, transparent), transparent 34%),
-      linear-gradient(180deg, color-mix(in srgb, var(--sl-color-bg) 95%, white), color-mix(in srgb, var(--sl-color-bg) 98%, black));
-  }
-
   .thesis-pillars__foundation {
     order: -1;
     grid-column: 1 / -1;
-    background:
-      radial-gradient(circle at top left, color-mix(in srgb, #79c8b2 18%, transparent), transparent 38%),
-      linear-gradient(180deg, color-mix(in srgb, var(--sl-color-bg) 92%, white), color-mix(in srgb, var(--sl-color-bg) 98%, black));
-  }
-
-  .thesis-pillars__label {
-    margin: 0 0 0.65rem;
-    color: var(--sl-color-text-accent);
-    text-transform: uppercase;
-    letter-spacing: 0.17em;
-    font-size: 0.76rem;
-    font-weight: 700;
-  }
-
-  .thesis-pillars h3 {
-    margin: 0;
-    font-size: clamp(1.45rem, 2.5vw, 2.2rem);
-    line-height: 1.06;
-    letter-spacing: -0.03em;
-  }
-
-  .thesis-pillars h3 + p {
-    margin-top: 0.85rem;
-  }
-
-  .thesis-pillars p:last-child {
-    margin: 0.85rem 0 0;
-    color: var(--sl-color-gray-2);
-    line-height: 1.55;
+    --home-card-accent: color-mix(in srgb, #79c8b2 18%, transparent);
+    --home-card-accent-dark: color-mix(in srgb, #79c8b2 18%, transparent);
+    --home-card-accent-size: 38%;
+    --home-card-bg-from: color-mix(in srgb, var(--sl-color-bg) 92%, white);
   }
 </style>

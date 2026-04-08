@@ -1,47 +1,20 @@
-<section class="cta-grid not-content">
-  <a href="/research/">
-    <strong>Research</strong>
-    <span>Read the unifying claim, terminology bridge, and dissemination-ready summary material.</span>
+<section class="cta-grid home-grid home-grid--cta not-content">
+  <a class="home-card home-card--quiet home-card--interactive" href="/research/">
+    <strong class="home-link-title">Research</strong>
+    <span class="home-link-copy">Read the unifying claim, terminology bridge, and dissemination-ready summary material.</span>
   </a>
-  <a href="/evidence/">
-    <strong>Evidence</strong>
-    <span>See which public claims come from the paper, the repo, and the integrated case studies.</span>
+  <a class="home-card home-card--quiet home-card--interactive" href="/evidence/">
+    <strong class="home-link-title">Evidence</strong>
+    <span class="home-link-copy">See which public claims come from the paper, the repo, and the integrated case studies.</span>
   </a>
-  <a href="/examples/">
-    <strong>Examples</strong>
-    <span>Jump into the runnable Scala examples and the mixed-paradigm scenarios worth showing first.</span>
+  <a class="home-card home-card--quiet home-card--interactive" href="/examples/">
+    <strong class="home-link-title">Examples</strong>
+    <span class="home-link-copy">Jump into the runnable Scala examples and the mixed-paradigm scenarios worth showing first.</span>
   </a>
 </section>
 
 <style>
   .cta-grid {
-    display: grid;
-    gap: 1rem;
     margin-top: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  }
-
-  .cta-grid a {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    border: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 34%, transparent);
-    border-radius: 1.3rem;
-    padding: 1.1rem 1.2rem;
-    text-decoration: none;
-    color: inherit;
-    background:
-      linear-gradient(180deg, color-mix(in srgb, var(--sl-color-bg) 94%, white), color-mix(in srgb, var(--sl-color-bg) 98%, black));
-    transition: transform 180ms ease, border-color 180ms ease;
-  }
-
-  .cta-grid a:hover {
-    transform: translateY(-2px);
-    border-color: color-mix(in srgb, var(--sl-color-text-accent) 40%, transparent);
-  }
-
-  .cta-grid span {
-    color: var(--sl-color-gray-2);
-    line-height: 1.45;
   }
 </style>
