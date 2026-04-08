@@ -1,0 +1,58 @@
+---
+title: Evidence
+description: Public claims for LociX, mapped back to paper-supported results and concrete repository artifacts.
+sidebar:
+  label: Evidence
+---
+
+## Claim Set
+
+The site should only make claims that can be traced to either the submitted paper or the current public repository. The list below is the canonical public claim set for this website.
+
+| Claim | Support |
+| --- | --- |
+| LociX explores a unified typed model for multitier, choreographic, and aggregate programming. | Core thesis of the submitted paper; reflected by the repository API surface and examples. |
+| The work uses capabilities and placement types as the shared foundation. | Central design claim in the paper. |
+| The paper formalizes a core calculus and proves type soundness. | Formalization and soundness result in the paper. |
+| The paper evaluates 46 literature-derived use cases. | Evaluation section of the paper. |
+| The public repository exposes runnable examples plus integrated artifacts such as CityEvt and the Nebula port. | `examples/` and `nebula/` in the public repository. |
+
+## What Is Directly Supported By The Paper
+
+### Core evidence
+
+- The submitted paper evaluates **46** use cases drawn from multitier, choreographic, and aggregate programming literature.
+- The paper reports **3,874 lines of Party code** across those reimplementations, broken down as **2,012** choreography, **1,425** multitier, and **437** aggregate.
+- The paper presents a formal core and type-soundness argument for the interaction of placed values and cross-paradigm operations.
+- The paper frames the work around three research questions: expressiveness and safety, inter-paradigm integration, and portability to other capability mechanisms and languages.
+
+### Integrated case studies discussed in the paper
+
+- **CityEvt** combines user registration, recommendation delivery, and crowd monitoring across smartphones, edge nodes, and cloud.
+- **SmrtMob** combines collective traffic sensing, edge-side coordination, and route recommendation.
+- **Nebula** is presented as a port of an open-source federated learning platform, focusing on round coordination, topology-aware participation, and dashboard reporting.
+
+## What Is Publicly Inspectable In The Repository
+
+### Direct artifact surface
+
+- [`examples/case-studies/city-evt/locix/CityEvt.scala`](https://github.com/nicolasfara/locix/blob/main/examples/case-studies/city-evt/locix/CityEvt.scala) shows one public mixed-paradigm example in which multitier, choreography, and collective operations appear in the same artifact.
+- [`nebula/src/io/github/locix/nebula/Nebula.scala`](https://github.com/nicolasfara/locix/blob/main/nebula/src/io/github/locix/nebula/Nebula.scala) shows the LociX Nebula port structure.
+- [`examples-mapping.yml`](https://github.com/nicolasfara/locix/blob/main/examples-mapping.yml) records the public mapping between literature examples and their LociX ports.
+- [`README.md`](https://github.com/nicolasfara/locix/blob/main/README.md) exposes the top-level public API framing and runnable entry points.
+
+### Nebula proof points worth repeating carefully
+
+The strongest dissemination angle for the Nebula port is semantic clarity, not operational completeness. The public porting notes in the repo argue that the LociX version is easier to read as a protocol specification because it replaces callback-heavy orchestration with direct control flow and typed communication terms. The same notes also state clearly what is *not* preserved: deployment concerns, retries, forwarding, dynamic runtime roles, and general framework infrastructure.
+
+That distinction matters for credibility. Public messaging should say that the port improves specification clarity and reduces incidental control-flow complexity, not that it replaces the original system as a production framework.
+
+## Artifact Status
+
+The paper’s data-availability statement describes the artifact as a research snapshot rather than a polished archival release. The site should preserve that honesty. Promote the work as a serious research artifact with runnable examples and strong ideas, but avoid implying turnkey production readiness or finished packaging work that is not yet in the public repo.
+
+## Guidance For Public Claims
+
+1. Use paper-backed numbers exactly as stated on this page.
+2. When talking about CityEvt or Nebula publicly, distinguish clearly between what is described in the paper and what is directly visible in the public repository today.
+3. Avoid turning research evidence into product-marketing claims such as performance superiority or operational completeness unless new measurements are added publicly.

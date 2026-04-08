@@ -1,0 +1,76 @@
+---
+title: Research
+description: Research framing for LociX, including the Party terminology bridge, core contributions, and dissemination-ready summaries.
+sidebar:
+  label: Research
+---
+
+## Research Line
+
+LociX is the public Scala artifact for a research line on unifying multiparty distributed programming through capabilities and placement types. The central claim is not only that multitier, choreographic, and aggregate programming can coexist in the same implementation, but that they can be expressed as distinct capability-guarded views over one typed distributed model.
+
+## Terminology
+
+> The OOPSLA submission presents the underlying framework as **Party**; **LociX** is the public Scala implementation and artifact.
+
+This mapping is intentional and should be stated explicitly whenever the work is presented outside the paper. The paper name identifies the research formulation. The public site and repository use LociX as the durable artifact identity.
+
+## What The Work Contributes
+
+1. A unifying design in which multitier, choreographic, and aggregate operations are treated as capabilities rather than unrelated language fragments.
+2. Placement types that make location and movement of values explicit across all three paradigms.
+3. A typed core formalization with soundness arguments for placed values and inter-paradigm interaction.
+4. A Scala reference implementation showing that the design is not only theoretical.
+5. An evaluation built around literature-derived use cases plus larger integrated case studies.
+
+## Why Capabilities Matter Here
+
+Capabilities do two jobs at once in this work. First, they delimit where paradigm-specific operations are legal, so a choreographic action is only available inside choreography context, a collective operator inside collective context, and so on. Second, because those capabilities coexist alongside placement types, the language can regulate not only which effects are available but also where values reside and when cross-paradigm access is valid.
+
+That is the positioning difference to emphasize in talks, the homepage, and short project summaries: the contribution is not “a Scala DSL with three feature sets,” but “a typed foundation for combining three distributed paradigms without collapsing them into one vague abstraction.”
+
+## Dissemination Kit
+
+### Tagline
+
+LociX is the public Scala artifact for a capabilities-and-placement-types approach to unifying multitier, choreographic, and aggregate programming.
+
+### Three-Sentence Abstract
+
+LociX explores how capabilities and placement types can unify three major multiparty programming styles: multitier programming, choreographic programming, and aggregate computing. The work preserves the distinct abstractions of each paradigm while enabling them to interact safely in one typed distributed model. The result is a Scala reference artifact backed by a formal core, compile-time safety arguments, and integrated case studies such as CityEvt and a Nebula port.
+
+### One-Paragraph Summary
+
+Modern distributed applications often need to express architectural placement, protocol coordination, and collective neighborhood behavior in the same system, but current tools usually force those concerns into separate frameworks or ad hoc integration layers. LociX explores a different route: use capabilities to delimit paradigm-specific operations and placement types to regulate where values live and how they move, so multitier, choreographic, and aggregate programming can be composed in one typed artifact. The OOPSLA submission presents this framework as Party; LociX is the public Scala implementation used to make the research line concrete, runnable, and easier to disseminate.
+
+### Short Talk Abstract
+
+This talk presents LociX, a Scala artifact for a broader research line on unifying multitier, choreographic, and aggregate programming through capabilities and placement types. Instead of treating these paradigms as competing languages, the work models them as distinct capability-guarded views over one typed distributed system, making cross-paradigm composition explicit and statically regulated. I will use CityEvt and the Nebula port to show why this matters for real systems that mix placement, protocol structure, and collective behavior.
+
+### Social Copy
+
+**Paper announcement**
+
+```text
+LociX explores a capabilities-and-placement-types approach to unifying multitier, choreographic, and aggregate programming.
+
+The submitted OOPSLA paper presents the framework as Party; LociX is the public Scala artifact. The goal is not to blur the paradigms together, but to make them composable in one typed distributed model.
+```
+
+**Repository announcement**
+
+```text
+The LociX repo is the public Scala artifact behind our work on unifying multitier, choreographic, and aggregate programming.
+
+If you want the shortest route into the thesis, start with CityEvt and the Nebula port rather than isolated toy examples.
+```
+
+**Example announcement**
+
+```text
+CityEvt is the clearest public LociX example right now: one program combining multitier registration, choreographic recommendation delivery, and collective crowd monitoring.
+```
+
+## Use This Page As The Canonical Story
+
+If project copy needs to stay aligned across the site, README text, issue templates, talk abstracts, or social posts, derive it from the terminology note and dissemination kit above rather than rewriting the framing from scratch.

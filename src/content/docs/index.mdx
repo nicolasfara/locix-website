@@ -1,17 +1,16 @@
 ---
 title: LociX
-description: Capability-based Scala framework for typed multiparty distributed programming.
+description: LociX explores how capabilities and placement types can unify multitier, choreographic, and aggregate programming in one typed distributed model.
 template: splash
 hero:
   title: |
-    <span class="block max-w-[14ch] text-[clamp(3rem,6vw,5.75rem)] leading-[0.94] font-black tracking-[-0.04em]">
-      Typed multiparty
-      <span class="text-[var(--sl-color-text-accent)]">distributed</span>
-      programming in Scala.
+    <span class="block max-w-[13ch] text-[clamp(2.5rem,2vw,5.5rem)] leading-[0.92] font-black tracking-[-0.045em]">
+      One typed framework
+      <span class="text-[var(--sl-color-text-accent)]">for three distributed paradigms.</span>
     </span>
   tagline: |
-    <span class="block max-w-2xl text-base leading-7 text-[var(--sl-color-gray-2)] sm:text-lg">
-      LociX is a capability-based framework for expressing where code runs, which peers communicate, and how values move across a distributed topology.
+    <span class="block max-w-3xl text-base leading-7 text-[var(--sl-color-gray-2)] sm:text-lg">
+      LociX explores how capabilities and placement types can unify multitier, choreographic, and aggregate programming in one Scala artifact, with formal foundations, compile-time safety, and integrated case studies.
     </span>
   image:
     dark: ../../assets/locix-logo-dark.svg
@@ -21,111 +20,32 @@ hero:
     - text: View on GitHub
       link: https://github.com/nicolasfara/locix
       icon: github
-    - text: Browse examples
-      link: https://github.com/nicolasfara/locix/tree/main/examples/src/io/github/locix
+    - text: Read the research
+      link: /research/
+      icon: document
       variant: minimal
-      icon: external
 ---
 
-import { Code, Tabs, TabItem } from '@astrojs/starlight/components';
+import CtaGrid from '../../components/home/CtaGrid.astro';
+import EvidenceStrip from '../../components/home/EvidenceStrip.astro';
+import IntegratedShowcase from '../../components/home/IntegratedShowcase.astro';
+import ParadigmTabs from '../../components/home/ParadigmTabs.astro';
+import ThesisPillars from '../../components/home/ThesisPillars.astro';
 
-export const choreographyExample = `object PingPong:
-  type Pinger <: { type Tie <: Single[Ponger] }
-  type Ponger <: { type Tie <: Single[Pinger] }
+<EvidenceStrip />
 
-  def pingPong(using Network, Placement, Choreography) = Choreography:
-    var c = 0
-    while c < 5 do
-      val onPinger = on[Pinger]:
-        val message = s"Ping $c"
-        println(s"Pinger sending message: $message")
-        message
+## Why This Matters
 
-      val messageOnPonger = comm[Pinger, Ponger](onPinger)
+Distributed systems rarely fit a single abstraction. Real systems mix architectural placement, protocol coordination, and neighborhood-style collective behavior, yet most languages and frameworks force developers to pick one paradigm at a time or stitch several together manually. LociX explores a different line: keep those paradigms distinct at the language level, but give them a shared foundation in capabilities and placement types so they can be composed safely.
 
-      on[Ponger]:
-        val msg = take(messageOnPonger)
-        println(s"Pong received message: $msg")
+<ThesisPillars />
 
-      c += 1
-      Thread.sleep(500)`;
+## Integrated Showcase
 
-export const multitierExample = `object MasterWorker:
-  type Master <: { type Tie <: Multiple[Worker] }
-  type Worker <: { type Tie <: Single[Master] }
-
-  class Task(input: Int):
-    def exec(): Int = input * 2
-
-  def allocateTasks(using Network) =
-    val inputs = List(1, 2, 3, 4, 5)
-    val workers = reachablePeersOf[Worker]
-    workers
-      .zip(inputs.grouped((inputs.size + workers.size - 1) / workers.size))
-      .toMap
-      .map:
-        case (worker, tasks) => worker -> tasks.map(new Task(_))
-
-  def taskAllocation(using n: Network, p: Placement, m: Multitier) = Multitier:
-    val allocation = on[Master] { allocateTasks }
-
-    val workerResults = on[Worker]:
-      val localAddress = peerAddress
-      asLocal(allocation)
-        .filter(_._1 == localAddress)
-        .flatMap(_._2)
-        .map(task => task.exec())
-
-    on[Master]:
-      val collectedResults = asLocalAll(workerResults).values.flatMap(_.toList).toList
-      println(s"Master collected results: $collectedResults")`;
-
-export const collectiveExample = `object AggregateCounter:
-  type Smartphone <: { type Tie <: Multiple[Smartphone] }
-
-  private def counter(using Network, PlacementType^, Collective) =
-    val counter = Collective[Smartphone](1.second):
-      rep(0)(_ + 1)
-
-    on[Smartphone]:
-      val signal = take(counter)
-      signal.subscribe { value =>
-        println(s"Device \${peerAddress} has count: $value")
-      }
-
-    Thread.sleep(5000)`;
+<IntegratedShowcase />
 
 ## Explore The Paradigms
 
-<section class="models-showcase not-content">
-  <div class="models-showcase__intro">
-    <p class="models-showcase__eyebrow">Runnable examples from the main repository</p>
-    <h3>One framework, three ways to describe distributed behavior.</h3>
-    <p>
-      LociX lets you model communication flows, colocated computation, and neighborhood-aware
-      programs with dedicated primitives. Switch between the tabs to compare the actual examples
-      from the repository side by side.
-    </p>
-  </div>
+<ParadigmTabs />
 
-  <Tabs syncKey="locix-paradigms">
-    <TabItem label="Choreography">
-      <p class="models-showcase__tab-copy">
-        Explicit message passing in program order for peer-to-peer interaction flows.
-      </p>
-      <Code code={choreographyExample} lang="scala" />
-    </TabItem>
-    <TabItem label="Multitier">
-      <p class="models-showcase__tab-copy">
-        Placement-aware task distribution where computation stays close to the peer that runs it.
-      </p>
-      <Code code={multitierExample} lang="scala" />
-    </TabItem>
-    <TabItem label="Collective">
-      <p class="models-showcase__tab-copy">
-        Neighborhood-style evolving state for distributed systems that react over time.
-      </p>
-      <Code code={collectiveExample} lang="scala" />
-    </TabItem>
-  </Tabs>
-</section>
+<CtaGrid />

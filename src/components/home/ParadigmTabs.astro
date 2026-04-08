@@ -1,0 +1,178 @@
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import ResponsiveCode from './ResponsiveCode.astro';
+
+const choreographyExample = `object PingPong:
+  type Pinger <: { type Tie <: Single[Ponger] }
+  type Ponger <: { type Tie <: Single[Pinger] }
+
+  def program(using Network, Placement, Choreography) = Choreography:
+    val pingOnPinger = on[Pinger]:
+      "ping"
+
+    val pingOnPonger = comm[Pinger, Ponger](pingOnPinger)
+
+    val pongOnPonger = on[Ponger]:
+      s"\${take(pingOnPonger)} -> pong"
+
+    val pongOnPinger = comm[Ponger, Pinger](pongOnPonger)`;
+
+const multitierExample = `object MasterWorker:
+  type Master <: { type Tie <: Multiple[Worker] }
+  type Worker <: { type Tie <: Single[Master] }
+
+  def program(using Network, Placement, Multitier) = Multitier:
+    val allocation = on[Master]:
+      allocateTasks
+
+    val workerResults = on[Worker]:
+      val localAddress = peerAddress
+      asLocal(allocation)
+        .filter(_._1 == localAddress)
+        .flatMap(_._2)
+        .map(_.exec())
+
+    on[Master]:
+      asLocalAll(workerResults).values.flatMap(_.toList).toList`;
+
+const collectiveExample = `object AggregateCounter:
+  type Smartphone <: { type Tie <: Multiple[Smartphone] }
+
+  def program(using Network, Placement, Collective) =
+    val counter = Collective[Smartphone](1.second):
+      rep(0)(_ + 1)
+
+    on[Smartphone]:
+      take(counter).subscribe: value =>
+        println(s"Device \${peerAddress} has count: $value")`;
+---
+
+<section class="models-showcase not-content">
+  <div class="models-showcase__intro">
+    <p class="models-showcase__eyebrow">Runnable examples from the main repository</p>
+    <h3>Three paradigms remain distinct, but they no longer live in separate worlds.</h3>
+    <p>
+      The isolated examples below still matter because each paradigm keeps its own vocabulary.
+      LociX is interesting because these pieces can also be composed in the same typed artifact.
+    </p>
+  </div>
+
+  <div class="models-showcase__tabs">
+    <Tabs syncKey="locix-paradigms">
+      <TabItem label="Choreography">
+        <p class="models-showcase__tab-copy">
+          Use explicit communication terms such as <code>comm</code>, <code>broadcast</code>, and
+          <code>gather</code> when the interaction protocol itself is the central object you want to read
+          and reason about.
+        </p>
+        <ResponsiveCode code={choreographyExample} lang="scala" />
+      </TabItem>
+      <TabItem label="Multitier">
+        <p class="models-showcase__tab-copy">
+          Use <code>on</code>, <code>asLocal</code>, and <code>asLocalAll</code> when architectural placement
+          and typed cross-tier data access are the key concerns.
+        </p>
+        <ResponsiveCode code={multitierExample} lang="scala" />
+      </TabItem>
+      <TabItem label="Collective">
+        <p class="models-showcase__tab-copy">
+          Use <code>rep</code>, <code>nbr</code>, and related collective operators when local device state
+          should evolve from neighboring context rather than point-to-point protocols.
+        </p>
+        <ResponsiveCode code={collectiveExample} lang="scala" />
+      </TabItem>
+    </Tabs>
+  </div>
+</section>
+
+<style>
+  .models-showcase {
+    margin-top: clamp(2.5rem, 4vw, 4rem);
+    border: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 34%, transparent);
+    border-radius: 1.75rem;
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+    background:
+      radial-gradient(circle at top left, color-mix(in srgb, var(--sl-color-text-accent) 10%, transparent), transparent 30%),
+      linear-gradient(180deg, color-mix(in srgb, var(--sl-color-bg) 94%, white), color-mix(in srgb, var(--sl-color-bg) 97%, black));
+    box-shadow:
+      0 1px 0 color-mix(in srgb, white 5%, transparent) inset,
+      0 28px 60px -40px color-mix(in srgb, black 42%, transparent);
+  }
+
+  :global([data-theme='dark']) .models-showcase {
+    background:
+      radial-gradient(circle at top left, color-mix(in srgb, var(--sl-color-text-accent) 16%, transparent), transparent 30%),
+      linear-gradient(180deg, color-mix(in srgb, var(--sl-color-bg) 92%, white), color-mix(in srgb, var(--sl-color-bg) 98%, black));
+  }
+
+  .models-showcase__intro {
+    max-width: 50rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .models-showcase__eyebrow {
+    margin: 0 0 0.65rem;
+    color: var(--sl-color-text-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.17em;
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+
+  .models-showcase__intro h3 {
+    margin: 0;
+    font-size: clamp(1.45rem, 2.5vw, 2.2rem);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+  }
+
+  .models-showcase__intro p:last-child {
+    margin: 0.85rem 0 0;
+    color: var(--sl-color-gray-2);
+    line-height: 1.55;
+  }
+
+  .models-showcase__tabs {
+    min-width: 0;
+  }
+
+  .models-showcase__tabs :global([role='tablist']) {
+    gap: 0.75rem;
+    border-bottom: 0;
+    flex-wrap: wrap;
+  }
+
+  .models-showcase__tabs :global(.tab > [role='tab']) {
+    border: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 36%, transparent);
+    border-radius: 9999px;
+    box-shadow: none;
+    background: color-mix(in srgb, var(--sl-color-bg) 88%, white);
+    color: var(--sl-color-gray-2);
+    padding: 0.55rem 1rem;
+    font-weight: 600;
+  }
+
+  .models-showcase__tabs :global(.tab > [role='tab'][aria-selected='true']) {
+    background: color-mix(in srgb, var(--sl-color-text-accent) 16%, transparent);
+    border-color: color-mix(in srgb, var(--sl-color-text-accent) 36%, transparent);
+    color: var(--sl-color-white);
+  }
+
+  :global([data-theme='dark']) .models-showcase__tabs :global(.tab > [role='tab']) {
+    background: color-mix(in srgb, var(--sl-color-bg) 94%, white);
+  }
+
+  .models-showcase__tabs :global([role='tabpanel']) {
+    min-width: 0;
+    margin-top: 1.25rem;
+  }
+
+  .models-showcase__tab-copy {
+    margin: 0 0 1.1rem;
+    color: color-mix(in srgb, var(--sl-color-white) 82%, var(--sl-color-gray-2));
+    font-size: 1.02rem;
+    font-weight: 500;
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+  }
+</style>

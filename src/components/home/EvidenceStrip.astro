@@ -1,0 +1,50 @@
+<section class="evidence-strip not-content">
+  <article>
+    <strong>46</strong>
+    <span>literature use cases evaluated in the submitted paper</span>
+  </article>
+  <article>
+    <strong>3</strong>
+    <span>paradigms treated as one typed distributed model</span>
+  </article>
+  <article>
+    <strong>1</strong>
+    <span>formalized core with type soundness for placed values and cross-paradigm interaction</span>
+  </article>
+  <article>
+    <strong>2</strong>
+    <span>public integrated artifacts already visible in the repo: CityEvt and the Nebula port</span>
+  </article>
+</section>
+
+<style>
+  .evidence-strip {
+    display: grid;
+    gap: 1rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  }
+
+  .evidence-strip article {
+    border: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 34%, transparent);
+    border-radius: 1.25rem;
+    padding: 1rem 1.1rem;
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--sl-color-bg) 95%, white), color-mix(in srgb, var(--sl-color-bg) 99%, black));
+  }
+
+  .evidence-strip strong {
+    display: block;
+    font-size: clamp(1.9rem, 3vw, 2.4rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .evidence-strip span {
+    display: block;
+    margin-top: 0.65rem;
+    color: var(--sl-color-gray-2);
+    font-size: 0.97rem;
+    line-height: 1.45;
+  }
+</style>

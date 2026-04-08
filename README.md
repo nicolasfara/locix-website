@@ -1,53 +1,32 @@
-# Starlight Starter Kit: Tailwind
+# LociX Website
 
-[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+This repository contains the public website for LociX, the Scala artifact used to communicate a research line on unifying multitier, choreographic, and aggregate programming through capabilities and placement types.
 
-```
-npm create astro@latest -- --template starlight/tailwind
-```
+## Site Structure
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- `src/content/docs/index.mdx`: homepage and public positioning.
+- `src/content/docs/research.mdx`: research framing, terminology bridge, and dissemination kit.
+- `src/content/docs/evidence.mdx`: paper-backed and repo-backed public claims.
+- `src/content/docs/examples.mdx`: curated entry points into the code artifact.
+- `src/assets/locix-thesis-map.svg`: thesis graphic used on the homepage.
+- `public/social/`: generated share assets.
+- `public/papers/`: downloadable paper artifacts served by the site.
 
-## 🚀 Project Structure
+## Commands
 
-Inside of your Astro + Starlight project, you'll see the following folders and files:
-
-```
-.
-├── public/
-├── src/
-│   ├── assets/
-│   ├── content/
-│   │   └── docs/
-│   ├── styles/
-│   │   └── global.css
-│   └── content.config.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
+```bash
+npm install
+npm run dev
+npm run build
+npm run preview
 ```
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+## Public Framing Rules
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+Use `LociX` as the public artifact name.
 
-Static assets, like favicons, can be placed in the `public/` directory.
+When the paper name must be mentioned, use the canonical bridge sentence:
 
-The project includes [Tailwind CSS](https://starlight.astro.build/guides/css-and-tailwind/#tailwind-css) for styling. Customize your design by modifying `src/styles/global.css`.
+> The OOPSLA submission presents the underlying framework as Party; LociX is the public Scala implementation and artifact.
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+Do not introduce quantitative claims on the site unless they are traceable to the submitted paper or the public repository.

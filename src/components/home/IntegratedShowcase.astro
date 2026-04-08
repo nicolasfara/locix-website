@@ -1,0 +1,112 @@
+---
+import ResponsiveCode from './ResponsiveCode.astro';
+
+const cityEvtExample = `def cityEvtApp(using Network, Placement, Multitier, Choreography, Collective) =
+  val registrationData = on[Smartphone]:
+    val username = peerAddress.asInstanceOf[String]
+    (username, s"$username@example.com")
+
+  val token = userRegistration(registrationData)
+  recommendation(token)
+  crowdMonitoring`;
+---
+
+<section class="case-study-showcase not-content">
+  <div class="case-study-showcase__copy">
+    <p class="case-study-showcase__eyebrow">Mixed-paradigm example</p>
+    <h3>CityEvt is the shortest path to the thesis.</h3>
+    <p>
+      CityEvt combines three subsystems in one program: multitier registration across smartphones
+      and cloud, a choreographic recommendation workflow between edge and cloud, and collective
+      crowd monitoring over nearby phones. It is the clearest public example of why the research
+      line is about composition rather than isolated DSL features.
+    </p>
+    <div class="case-study-flow">
+      <article>
+        <strong>Registration</strong>
+        <span>Multitier handoff from phones to cloud</span>
+      </article>
+      <article>
+        <strong>Recommendations</strong>
+        <span>Choreographic protocol across edge and cloud</span>
+      </article>
+      <article>
+        <strong>Crowd monitoring</strong>
+        <span>Collective sensing over neighboring smartphones</span>
+      </article>
+    </div>
+  </div>
+  <div class="case-study-showcase__code">
+    <ResponsiveCode code={cityEvtExample} lang="scala" />
+  </div>
+</section>
+
+<style>
+  .case-study-showcase {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1rem;
+    border: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 34%, transparent);
+    border-radius: 1.75rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background:
+      radial-gradient(circle at top right, color-mix(in srgb, var(--sl-color-text-accent) 10%, transparent), transparent 36%),
+      linear-gradient(180deg, color-mix(in srgb, var(--sl-color-bg) 95%, white), color-mix(in srgb, var(--sl-color-bg) 98%, black));
+  }
+
+  .case-study-showcase__copy,
+  .case-study-showcase__code {
+    min-width: 0;
+  }
+
+  @media (min-width: 60rem) {
+    .case-study-showcase {
+      grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.92fr);
+      align-items: start;
+    }
+  }
+
+  .case-study-showcase__eyebrow {
+    margin: 0 0 0.65rem;
+    color: var(--sl-color-text-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.17em;
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+
+  .case-study-showcase h3 {
+    margin: 0;
+    font-size: clamp(1.45rem, 2.5vw, 2.2rem);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+  }
+
+  .case-study-showcase__copy > p:last-of-type {
+    margin: 0.85rem 0 0;
+    color: var(--sl-color-gray-2);
+    line-height: 1.55;
+  }
+
+  .case-study-flow {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1.15rem;
+  }
+
+  .case-study-flow article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 32%, transparent);
+    border-radius: 1rem;
+    padding: 0.9rem 1rem;
+    background: color-mix(in srgb, var(--sl-color-bg) 90%, white);
+  }
+
+  .case-study-flow span {
+    color: var(--sl-color-gray-2);
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+</style>
