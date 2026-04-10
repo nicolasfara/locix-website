@@ -1,6 +1,6 @@
-# LociX Website
+# MpaCT Website
 
-This repository contains the public website for LociX, the Scala artifact used to communicate a research line on unifying multitier, choreographic, and aggregate programming through capabilities and placement types.
+This repository contains the public website for MpaCT, the Scala framework used to communicate a research line on unifying multitier, choreographic, and aggregate programming through capabilities and placement types.
 
 ## Site Structure
 
@@ -23,10 +23,10 @@ npm run preview
 
 ## Public Framing Rules
 
-Use `LociX` as the public artifact name.
+Use `MpaCT` as the public framework name.
 
-When the paper name must be mentioned, use the canonical bridge sentence:
+When earlier naming needs to be mentioned, use the canonical bridge sentence:
 
-> The OOPSLA submission presents the underlying framework as Party; LociX is the public Scala implementation and artifact.
+> This site presents the framework as MpaCT; earlier drafts may still use a previous working title.
 
 Do not introduce quantitative claims on the site unless they are traceable to the submitted paper or the public repository.

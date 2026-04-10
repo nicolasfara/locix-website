@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
-  <title id="title">LociX thesis map</title>
+  <title id="title">MpaCT thesis map</title>
   <desc id="desc">A diagram showing multitier, choreography, and aggregate programming converging into capabilities and placement types, then flowing into CityEvt and the Nebula port.</desc>
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -24,7 +24,7 @@
   <circle cx="1036" cy="180" r="132" fill="#dbe7ff" opacity="0.72" />
   <circle cx="106" cy="770" r="160" fill="#e9f7f0" opacity="0.78" />
 
-  <text x="90" y="90" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">LociX research line</text>
+  <text x="90" y="90" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">MpaCT research line</text>
   <text x="90" y="130" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="22" fill="#334155">Capabilities and placement types as a shared foundation for distributed programming.</text>
 
   <g filter="url(#shadow)">

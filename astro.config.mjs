@@ -8,13 +8,13 @@ export default defineConfig({
 	site: 'https://locix.github.io',
 	integrations: [
 		starlight({
-			title: 'LociX',
+			title: 'MpaCT',
 			description:
-				'LociX explores how capabilities and placement types can unify multitier, choreographic, and aggregate programming in one typed distributed model.',
+				'MpaCT explores how capabilities and placement types can unify multitier, choreographic, and aggregate programming in one typed distributed model.',
 			logo: {
 				dark: './src/assets/locix-logo-dark.svg',
 				light: './src/assets/locix-logo-light.svg',
-				alt: 'LociX logo',
+				alt: 'MpaCT logo',
 			},
 			tagline: 'Capabilities and placement types for unified distributed programming.',
 			expressiveCode: {
