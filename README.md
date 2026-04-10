@@ -4,6 +4,7 @@ This repository contains the public website for MpaCT, the Scala framework used 
 
 ## Site Structure
 
+- `src/data/brand.js`: shared public brand name and metadata.
 - `src/content/docs/index.mdx`: homepage and public positioning.
 - `src/content/docs/research.mdx`: research framing, terminology bridge, and dissemination kit.
 - `src/content/docs/evidence.mdx`: paper-backed and repo-backed public claims.
@@ -24,6 +25,8 @@ npm run preview
 ## Public Framing Rules
 
 Use `MpaCT` as the public framework name.
+
+When the display name needs to change, update `src/data/brand.js` first.
 
 When earlier naming needs to be mentioned, use the canonical bridge sentence:
 

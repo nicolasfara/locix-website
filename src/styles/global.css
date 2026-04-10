@@ -173,6 +173,10 @@ html[data-has-hero] {
     line-height: 1.45;
   }
 
+  pre code.language-text {
+    white-space: pre-wrap;
+  }
+
   .content-panel .hero {
     position: relative;
     isolation: isolate;
@@ -182,7 +186,6 @@ html[data-has-hero] {
     padding: clamp(1.5rem, 3vw, 2.75rem);
     background:
       radial-gradient(circle at top right, color-mix(in srgb, var(--sl-color-text-accent) 18%, transparent), transparent 38%),
-      radial-gradient(circle at bottom left, color-mix(in srgb, #d2f2e8 24%, transparent), transparent 32%),
       linear-gradient(160deg, color-mix(in srgb, var(--sl-color-bg) 94%, white), color-mix(in srgb, var(--sl-color-bg) 98%, black));
     box-shadow:
       0 1px 0 color-mix(in srgb, white 7%, transparent) inset,
@@ -192,7 +195,6 @@ html[data-has-hero] {
   [data-theme='dark'] .content-panel .hero {
     background:
       radial-gradient(circle at top right, color-mix(in srgb, var(--sl-color-text-accent) 20%, transparent), transparent 38%),
-      radial-gradient(circle at bottom left, color-mix(in srgb, #78c7b1 16%, transparent), transparent 34%),
       linear-gradient(160deg, color-mix(in srgb, var(--sl-color-bg) 92%, white), color-mix(in srgb, var(--sl-color-bg) 98%, black));
     box-shadow:
       0 1px 0 color-mix(in srgb, white 10%, transparent) inset,
@@ -200,16 +202,7 @@ html[data-has-hero] {
   }
 
   .content-panel .hero::after {
-    content: '';
-    position: absolute;
-    inset: auto auto -5rem -4rem;
-    width: 13rem;
-    height: 13rem;
-    border-radius: 9999px;
-    background: color-mix(in srgb, var(--sl-color-text-accent) 12%, transparent);
-    filter: blur(72px);
-    pointer-events: none;
-    z-index: -1;
+    content: none;
   }
 
   .content-panel .hero > img {

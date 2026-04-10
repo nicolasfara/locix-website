@@ -32,29 +32,29 @@ export default defineConfig({
 					],
 				},
 			],
-			head: [
-				{
-					tag: 'meta',
-					attrs: {
-						property: 'og:image',
-						content: 'https://locix.github.io/social/locix-preview.png',
-					},
-				},
-				{
-					tag: 'meta',
-					attrs: {
-						name: 'twitter:card',
-						content: 'summary_large_image',
-					},
-				},
-				{
-					tag: 'meta',
-					attrs: {
-						name: 'twitter:image',
-						content: 'https://locix.github.io/social/locix-preview.png',
-					},
-				},
-			],
+			// head: [
+			// 	{
+			// 		tag: 'meta',
+			// 		attrs: {
+			// 			property: 'og:image',
+			// 			content: 'https://locix.github.io/social/locix-preview.png',
+			// 		},
+			// 	},
+			// 	{
+			// 		tag: 'meta',
+			// 		attrs: {
+			// 			name: 'twitter:card',
+			// 			content: 'summary_large_image',
+			// 		},
+			// 	},
+			// 	{
+			// 		tag: 'meta',
+			// 		attrs: {
+			// 			name: 'twitter:image',
+			// 			content: 'https://locix.github.io/social/locix-preview.png',
+			// 		},
+			// 	},
+			// ],
 			customCss: ['./src/styles/global.css'],
 		}),
 	],
