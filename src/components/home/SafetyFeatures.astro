@@ -1,0 +1,173 @@
+---
+import { Code } from '@astrojs/starlight/components';
+
+const safetyFeatures = [
+  {
+    label: 'Placement safety',
+    title: 'Peer boundaries stay explicit in the code.',
+    body: 'Placed values remain attached to named peers, so direct cross-peer access is rejected until the program uses an explicit interaction.',
+    rejectedCode: `def misplaced(using Placement) =
+  val token: Token on Phone = on[Phone]:
+    issueToken()
+  on[Cloud]:
+    take(token) // rejected`,
+  acceptedCode: `def ok(using Placement, Choreography) = Choreography:
+  val token: Token on Phone = on[Phone]:
+    issueToken()
+  val tokenOnCloud = comm[Phone, Cloud](token)
+  on[Cloud] { take(tokenOnCloud) }`,
+  },
+  {
+    label: 'Scoped capabilities',
+    title: 'Paradigm operations only work in their own scope.',
+    body: 'Capabilities make authority visible. Paradigm operations are only available when the matching paradigm scope is open.',
+    rejectedCode: `def bad(using Placement, Multitier) =
+  on[Client]: // rejected
+    asLocal(users)`,
+    acceptedCode: `def good(using Placement, Multitier) = Multitier:
+  on[Client]:
+    asLocal(users)`,
+  },
+  {
+    label: 'Leak prevention',
+    title: 'Invalid captures are stopped before runtime.',
+    body: 'A function cannot quietly carry peer-local data into a different peer context when that capture would become invalid after communication.',
+    rejectedCode: `def leaking(using Placement, Choreography) =
+  Choreography:
+    val msg: String on Phone = on[Phone]("hi")
+    val f: (() => String) on Phone = on[Phone]:
+      () => take(msg) // rejected
+    comm[Phone, Cloud](f)`,
+    acceptedCode: `def noLeak(using Placement, Choreography) =
+  Choreography:
+    val msg: String on Phone = on[Phone]("hi")
+    val sent = comm[Phone, Cloud](msg)
+    on[Cloud]:
+      take(sent)`,
+  },
+  {
+    label: 'Safe composition',
+    title: 'Composition keeps typed handoff points visible.',
+    body: 'Unsafe nested placement patterns are ruled out, while valid cross-paradigm handoffs still happen through placed values and explicit operations.',
+    rejectedCode: `def deadlocking(using Placement, Choreography) =
+  Choreography:
+    val msg: String on Phone = on[Phone]:
+      val cloud: String on Cloud = on[Cloud]:
+        "hello"
+      take(comm[Cloud, Phone](cloud)) // rejected`,
+      acceptedCode: `def ok(using Placement, Collective, Multitier) =
+  Choreography:
+    val cloud: String on Cloud = on[Cloud]:
+      "hello"
+    val onPhone = comm[Cloud, Phone](cloud))
+    on[Phone] { take(onPhone) }`,
+  },
+];
+---
+
+<section class="safety-features home-grid not-content">
+  {
+    safetyFeatures.map(({ label, title, body, rejectedCode, acceptedCode }) => (
+      <article class="home-card safety-features__card">
+        <span class="home-eyebrow">{label}</span>
+        <h3 class="home-title safety-features__title">{title}</h3>
+        <p class="home-body">{body}</p>
+
+        <div class="safety-features__snippets">
+          <section class="safety-features__snippet">
+            <span class="safety-features__badge safety-features__badge--rejected">Rejected</span>
+            <div class="home-code safety-features__code">
+              <Code code={rejectedCode} lang="scala" />
+            </div>
+          </section>
+
+          <section class="safety-features__snippet">
+            <span class="safety-features__badge safety-features__badge--accepted">Accepted</span>
+            <div class="home-code safety-features__code">
+              <Code code={acceptedCode} lang="scala" />
+            </div>
+          </section>
+        </div>
+      </article>
+    ))
+  }
+</section>
+
+<style>
+  .safety-features {
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+
+  .safety-features__card {
+    --home-card-accent: color-mix(in srgb, var(--sl-color-text-accent) 10%, transparent);
+    --home-card-accent-dark: color-mix(in srgb, var(--sl-color-text-accent) 14%, transparent);
+    --home-card-accent-size: 34%;
+    --home-card-bg-from: color-mix(in srgb, var(--sl-color-bg) 94%, white);
+    --home-card-bg-to: color-mix(in srgb, var(--sl-color-bg) 98%, black);
+    min-width: 0;
+  }
+
+  .safety-features__title {
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    line-height: 1.14;
+  }
+
+  .safety-features__snippets {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .safety-features__snippet {
+    min-width: 0;
+  }
+
+  .safety-features__badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .safety-features__badge--rejected {
+    background: color-mix(in srgb, #c95a5a 14%, transparent);
+    color: color-mix(in srgb, #c95a5a 82%, white);
+  }
+
+  .safety-features__badge--accepted {
+    background: color-mix(in srgb, #4f9c6b 16%, transparent);
+    color: color-mix(in srgb, #4f9c6b 78%, white);
+  }
+
+  .safety-features__code {
+    margin-top: 0.55rem;
+  }
+
+  .safety-features__code :global(.expressive-code),
+  .safety-features__code :global(.frame),
+  .safety-features__code :global(pre) {
+    max-width: 100%;
+  }
+
+  .safety-features__code :global(.frame) {
+    overflow: hidden;
+  }
+
+  .safety-features__code :global(pre) {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 60rem) {
+    .safety-features__snippets {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
