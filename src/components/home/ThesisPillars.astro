@@ -42,12 +42,12 @@ collective[Phone](1.second):
 
 const foundationStates = [
   {
-    title: 'Capabilities gate paradigm-specific power',
+    title: 'Capabilities',
     body: 'Capabilities make access to each model explicit. The highlighted line shows choreography being requested directly, so paradigm-specific operations stay visible, deliberate, and controlled inside the program.',
     mark: ['Placement', 'Choreography', 'Multitier', 'Collective'],
   },
   {
-    title: 'Placement types establish where peers live',
+    title: 'Placement Types',
     body: 'Placement types define where data belongs before any communication begins. The highlighted input annotation ties the value to Alice directly, making its location explicit inside the program signature.',
     mark: [1, 2, 'Data on Alice'],
   },
@@ -67,19 +67,18 @@ def example(input: Data on Alice)(using
 
 <section class="thesis-foundation home-card not-content" data-foundation-switcher>
   <span class="home-eyebrow">Shared foundation</span>
-  <h3 class="home-title">Capabilities and Placement Types</h3>
   <div class="thesis-foundation__content">
     <div class="thesis-foundation__copy">
       <div class="thesis-foundation__copy-stage">
         {
           foundationStates.map(({ title, body }, index) => (
             <section
-              class="thesis-foundation__panel thesis-foundation__copy-panel"
+              class="thesis-foundation__panel"
               data-foundation-copy
               data-active={index === 0 ? 'true' : 'false'}
               aria-hidden={index === 0 ? 'false' : 'true'}
             >
-              <h4 class="thesis-foundation__scenario-title">{title}</h4>
+              <h3 class="home-title">{title}</h3>
               <p class="home-body">{body}</p>
             </section>
           ))
@@ -104,12 +103,12 @@ def example(input: Data on Alice)(using
         {
           foundationStates.map(({ mark }, index) => (
             <div
-              class="thesis-foundation__panel thesis-foundation__code-panel"
+              class="thesis-foundation__panel"
               data-foundation-code
               data-active={index === 0 ? 'true' : 'false'}
               aria-hidden={index === 0 ? 'false' : 'true'}
             >
-              <div class="home-code thesis-foundation__code">
+              <div class="home-code">
                 <Code code={placementTypesCapabilities} lang="scala" mark={mark} />
               </div>
             </div>
@@ -148,21 +147,23 @@ def example(input: Data on Alice)(using
     --home-card-bg-from: color-mix(in srgb, var(--sl-color-bg) 92%, white);
   }
 
-  .thesis-foundation__content {
+  .thesis-foundation__content,
+  .thesis-foundation__copy {
     display: grid;
     gap: 1rem;
-    margin-top: 0.85rem;
+  }
+
+  .thesis-foundation__content {
     align-items: start;
   }
 
   .thesis-foundation__copy,
-  .thesis-foundation__example {
+  .thesis-foundation__example,
+  .thesis-foundation__panel {
     min-width: 0;
   }
 
   .thesis-foundation__copy {
-    display: grid;
-    gap: 1rem;
     align-content: start;
   }
 
@@ -173,22 +174,19 @@ def example(input: Data on Alice)(using
 
   .thesis-foundation__panel {
     grid-area: 1 / 1;
-    min-width: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(0.2rem);
     transition:
       opacity 220ms ease,
       transform 220ms ease;
   }
 
-  .thesis-foundation__panel[data-active='false'] {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateY(0.2rem);
-  }
-
   .thesis-foundation__panel[data-active='true'] {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
     transform: translateY(0);
   }
 
