@@ -38,53 +38,51 @@ collective[Phone](1.second):
     }
 `
   },
-  {
-    label: 'Shared foundation',
-    title: 'Capabilities + placement types',
-    body: 'Unify these paradigms through capabilities and placement types that govern operations, locations, and movement safely.',
-    codeExample: `
-foundation:
-  capability Multitier
-  capability Choreography
-  capability Collective
-
-  type Reading @ Sensor
-  type Alert @ Cloud
-`,
-    featured: true,
-  },
 ];
+
+const placementTypesCapabilities = `
+type Alice <: { type Tie <: Bob }
+type Bob <: { type Tie <: Alice }
+
+def example(using Network, Placement, Choreography) =
+  val choreoResult = choreography { /*...*/ }
+  val multitierResult = multitier { /*...*/ }
+  val collectiveResult = collective(1.second) { /*...*/ }
+`
 ---
+
+<section class="thesis-foundation home-card not-content">
+  <span class="home-eyebrow">Shared foundation</span>
+  <h3 class="home-title">Capabilities and Placement Types</h3>
+  <div class="thesis-foundation__content">
+    <div class="thesis-foundation__copy">
+      <p class="home-body">
+        Unify these paradigms through capabilities and placement types that govern operations, locations, and movement safely.
+      </p>
+      <p class="home-body">
+        Capabilities are the language's way of controlling access to resources and operations, while placement types describe where code runs and data lives. By using these together, MpaCT allows developers to write code that can safely interact across different tiers, coordinate complex protocols, and manage collective behaviors without sacrificing safety or composability.
+      </p>
+    </div>
+    <div class="thesis-foundation__example">
+      <div class="home-code thesis-foundation__code">
+        <Code code={placementTypesCapabilities} lang="scala" />
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="thesis-pillars home-grid not-content">
   {
-    pillars.map(({ label, title, body, featured, codeExample }) => (
-      <article class:list={['home-card', { 'thesis-pillars__foundation': featured }]}>
+    pillars.map(({ label, title, body, codeExample }) => (
+      <article class="home-card">
+        <span class="home-eyebrow">{label}</span>
+        <h3 class="home-title">{title}</h3>
+        <p class="home-body">{body}</p>
         {
-          featured && codeExample ? (
-            <>
-              <span class="home-eyebrow">{label}</span>
-              <h3 class="home-title">{title}</h3>
-              <div class="thesis-pillars__foundation-content">
-                <p class="home-body">{body}</p>
-                <div class="home-code thesis-pillars__foundation-code">
-                  <Code code={codeExample} lang="scala" />
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <span class="home-eyebrow">{label}</span>
-              <h3 class="home-title">{title}</h3>
-              <p class="home-body">{body}</p>
-              {
-                codeExample && (
-                  <div class="home-code">
-                    <Code code={codeExample} lang="scala" />
-                  </div>
-                )
-              }
-            </>
+          codeExample && (
+            <div class="home-code">
+              <Code code={codeExample} lang="scala" />
+            </div>
           )
         }
       </article>
@@ -93,8 +91,28 @@ foundation:
 </section>
 
 <style>
-  .thesis-pillars {
+  .thesis-foundation {
     margin-top: 1.5rem;
+    --home-card-accent: color-mix(in srgb, #79c8b2 18%, transparent);
+    --home-card-accent-dark: color-mix(in srgb, #79c8b2 18%, transparent);
+    --home-card-accent-size: 38%;
+    --home-card-bg-from: color-mix(in srgb, var(--sl-color-bg) 92%, white);
+  }
+
+  .thesis-foundation__content {
+    display: grid;
+    gap: 1rem;
+    margin-top: 0.85rem;
+    align-items: start;
+  }
+
+  .thesis-foundation__copy,
+  .thesis-foundation__example {
+    min-width: 0;
+  }
+
+  .thesis-pillars {
+    margin-top: 1rem;
   }
 
   @media (min-width: 48rem) {
@@ -103,38 +121,25 @@ foundation:
     }
   }
 
-  .thesis-pillars__foundation {
-    order: -1;
-    grid-column: 1 / -1;
-    --home-card-accent: color-mix(in srgb, #79c8b2 18%, transparent);
-    --home-card-accent-dark: color-mix(in srgb, #79c8b2 18%, transparent);
-    --home-card-accent-size: 38%;
-    --home-card-bg-from: color-mix(in srgb, var(--sl-color-bg) 92%, white);
-  }
-
   .thesis-pillars .home-code {
     margin-top: 0.95rem;
   }
 
-  .thesis-pillars__foundation-content {
-    display: grid;
-    gap: 1rem;
-    margin-top: 0.85rem;
-    align-items: start;
-  }
-
-  .thesis-pillars__foundation-content > * {
-    min-width: 0;
-  }
-
   @media (min-width: 60rem) {
-    .thesis-pillars__foundation-content {
+    .thesis-foundation__content {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
   }
 
-  .thesis-pillars__foundation-content .home-body,
-  .thesis-pillars__foundation .home-code {
+  .thesis-foundation__copy .home-body {
+    margin-top: 0;
+  }
+
+  .thesis-foundation__example-label {
+    margin-bottom: 0.5rem;
+  }
+
+  .thesis-foundation .home-code {
     margin-top: 0;
   }
 </style>
