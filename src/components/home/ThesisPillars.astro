@@ -40,32 +40,81 @@ collective[Phone](1.second):
   },
 ];
 
-const placementTypesCapabilities = `
-type Alice <: { type Tie <: Bob }
+const foundationStates = [
+  {
+    title: 'Capabilities gate paradigm-specific power',
+    body: 'Capabilities make access to each model explicit. The highlighted line shows choreography being requested directly, so paradigm-specific operations stay visible, deliberate, and controlled inside the program.',
+    mark: 5,
+  },
+  {
+    title: 'Placement types establish where peers live',
+    body: 'Placement types define where data belongs before any communication begins. The highlighted input annotation ties the value to Alice directly, making its location explicit inside the program signature.',
+    mark: 'input: Data on Alice',
+  },
+];
+
+const placementTypesCapabilities = `type Alice <: { type Tie <: Bob }
 type Bob <: { type Tie <: Alice }
 
-def example(using Network, Placement, Choreography) =
+def example(input: Data on Alice)(using
+    Network, Placement, Choreography
+) =
   val choreoResult = choreography { /*...*/ }
   val multitierResult = multitier { /*...*/ }
   val collectiveResult = collective(1.second) { /*...*/ }
 `
 ---
 
-<section class="thesis-foundation home-card not-content">
+<section class="thesis-foundation home-card not-content" data-foundation-switcher>
   <span class="home-eyebrow">Shared foundation</span>
   <h3 class="home-title">Capabilities and Placement Types</h3>
   <div class="thesis-foundation__content">
     <div class="thesis-foundation__copy">
-      <p class="home-body">
-        Unify these paradigms through capabilities and placement types that govern operations, locations, and movement safely.
-      </p>
-      <p class="home-body">
-        Capabilities are the language's way of controlling access to resources and operations, while placement types describe where code runs and data lives. By using these together, MpaCT allows developers to write code that can safely interact across different tiers, coordinate complex protocols, and manage collective behaviors without sacrificing safety or composability.
-      </p>
+      <div class="thesis-foundation__copy-stage">
+        {
+          foundationStates.map(({ title, body }, index) => (
+            <section
+              class="thesis-foundation__panel thesis-foundation__copy-panel"
+              data-foundation-copy
+              data-active={index === 0 ? 'true' : 'false'}
+              aria-hidden={index === 0 ? 'false' : 'true'}
+            >
+              <h4 class="thesis-foundation__scenario-title">{title}</h4>
+              <p class="home-body">{body}</p>
+            </section>
+          ))
+        }
+      </div>
+      <div class="thesis-foundation__dots" aria-label="Shared foundation scenarios">
+        {
+          foundationStates.map(({ title }, index) => (
+            <button
+              type="button"
+              class="thesis-foundation__dot"
+              data-foundation-dot
+              aria-label={`Show ${title.toLowerCase()}`}
+              aria-pressed={index === 0 ? 'true' : 'false'}
+            />
+          ))
+        }
+      </div>
     </div>
     <div class="thesis-foundation__example">
-      <div class="home-code thesis-foundation__code">
-        <Code code={placementTypesCapabilities} lang="scala" />
+      <div class="thesis-foundation__code-stage">
+        {
+          foundationStates.map(({ mark }, index) => (
+            <div
+              class="thesis-foundation__panel thesis-foundation__code-panel"
+              data-foundation-code
+              data-active={index === 0 ? 'true' : 'false'}
+              aria-hidden={index === 0 ? 'false' : 'true'}
+            >
+              <div class="home-code thesis-foundation__code">
+                <Code code={placementTypesCapabilities} lang="scala" mark={mark} />
+              </div>
+            </div>
+          ))
+        }
       </div>
     </div>
   </div>
@@ -111,6 +160,45 @@ def example(using Network, Placement, Choreography) =
     min-width: 0;
   }
 
+  .thesis-foundation__copy {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .thesis-foundation__copy-stage,
+  .thesis-foundation__code-stage {
+    display: grid;
+  }
+
+  .thesis-foundation__panel {
+    grid-area: 1 / 1;
+    min-width: 0;
+    transition:
+      opacity 220ms ease,
+      transform 220ms ease;
+  }
+
+  .thesis-foundation__panel[data-active='false'] {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(0.2rem);
+  }
+
+  .thesis-foundation__panel[data-active='true'] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .thesis-foundation__scenario-title {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
   .thesis-pillars {
     margin-top: 1rem;
   }
@@ -132,14 +220,88 @@ def example(using Network, Placement, Choreography) =
   }
 
   .thesis-foundation__copy .home-body {
-    margin-top: 0;
+    margin-top: 0.65rem;
   }
 
-  .thesis-foundation__example-label {
-    margin-bottom: 0.5rem;
+  .thesis-foundation__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+  }
+
+  .thesis-foundation__dot {
+    width: 0.72rem;
+    height: 0.72rem;
+    border: 0;
+    border-radius: 9999px;
+    padding: 0;
+    background: color-mix(in srgb, var(--sl-color-gray-4) 45%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sl-color-gray-5) 35%, transparent);
+    cursor: pointer;
+    transition:
+      transform 180ms ease,
+      background-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .thesis-foundation__dot:hover,
+  .thesis-foundation__dot:focus-visible {
+    transform: scale(1.08);
+  }
+
+  .thesis-foundation__dot:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--sl-color-text-accent) 60%, white);
+    outline-offset: 2px;
+  }
+
+  .thesis-foundation__dot[aria-pressed='true'] {
+    background: color-mix(in srgb, var(--sl-color-text-accent) 75%, white);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sl-color-text-accent) 35%, transparent);
   }
 
   .thesis-foundation .home-code {
     margin-top: 0;
   }
 </style>
+
+<script is:inline>
+  for (const root of document.querySelectorAll('[data-foundation-switcher]')) {
+    const dots = Array.from(root.querySelectorAll('[data-foundation-dot]'));
+    const copyPanels = Array.from(root.querySelectorAll('[data-foundation-copy]'));
+    const codePanels = Array.from(root.querySelectorAll('[data-foundation-code]'));
+
+    if (!dots.length || copyPanels.length !== codePanels.length || !copyPanels.length) continue;
+
+    let activeIndex = dots.findIndex((dot) => dot.getAttribute('aria-pressed') === 'true');
+
+    if (activeIndex < 0) activeIndex = 0;
+
+    const syncPanels = (panels, index) => {
+      panels.forEach((panel, panelIndex) => {
+        const isActive = panelIndex === index;
+        panel.dataset.active = isActive ? 'true' : 'false';
+        panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+    };
+
+    const applyState = (index) => {
+      activeIndex = index;
+
+      dots.forEach((dot, dotIndex) => {
+        dot.setAttribute('aria-pressed', dotIndex === index ? 'true' : 'false');
+      });
+
+      syncPanels(copyPanels, index);
+      syncPanels(codePanels, index);
+    };
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        applyState(index);
+      });
+    });
+
+    applyState(activeIndex);
+  }
+</script>
