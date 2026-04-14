@@ -1,24 +1,56 @@
 ---
+import { Code } from "@astrojs/starlight/components";
+
 const pillars = [
   {
     label: 'Multitier',
     title: 'Where computation lives',
-    body: 'Place code and data explicitly across peers such as clients, servers, dashboards, edge nodes, and devices.',
+    body: 'Place code and data safely across peers enabling cross-tier interactions without boilerplate or breaking abstractions.',
+    codeExample: `
+multitier:
+  val data = on[Server]:
+    query("SELECT * FROM users")
+  on[Client]:
+    render(asLocal(data)) 
+`
   },
   {
     label: 'Choreography',
     title: 'Deadlock-free peer interaction',
-    body: 'Describe cross-host communication in program order instead of scattering message handlers, callbacks, and protocol state throughout the codebase.',
+    body: 'Express cross-host communication in program order so protocols remain visible instead of scattering across handlers.',
+    codeExample: `
+choreography:
+  val ping = on[Pinger]("ping")
+  val onPonger =
+      comm[Pinger, Ponger](ping)
+  on[Ponger] { take(onPonger) }
+`
   },
   {
     label: 'Aggregate',
     title: 'Collective-adaptive behaviors',
-    body: 'Model ensembles of devices as collective computations over local observations, time, and neighboring peers.',
+    body: 'Model device ensembles as collective computations over local observations, time, and interactions with nearby peers.',
+    codeExample: `
+collective[Phone](1.second):
+  rep(PositiveInfinity): prev =>
+    mux(isSource) { 0.0 } {
+      (nbr(prev) + nbrRange).min
+    }
+`
   },
   {
     label: 'Shared foundation',
     title: 'Capabilities + placement types',
-    body: "The paper's core idea is that paradigm-specific operations can be guarded by capabilities, while placement types regulate where values live and how they move between peers.",
+    body: 'Unify these paradigms through capabilities and placement types that govern operations, locations, and movement safely.',
+    codeExample: `
+foundation:
+  capability Multitier
+  capability Choreography
+  capability Collective
+
+  type Reading @ Sensor
+  type Alert @ Cloud
+`,
     featured: true,
   },
 ];
@@ -26,11 +58,35 @@ const pillars = [
 
 <section class="thesis-pillars home-grid not-content">
   {
-    pillars.map(({ label, title, body, featured }) => (
+    pillars.map(({ label, title, body, featured, codeExample }) => (
       <article class:list={['home-card', { 'thesis-pillars__foundation': featured }]}>
-        <span class="home-eyebrow">{label}</span>
-        <h3 class="home-title">{title}</h3>
-        <p class="home-body">{body}</p>
+        {
+          featured && codeExample ? (
+            <>
+              <span class="home-eyebrow">{label}</span>
+              <h3 class="home-title">{title}</h3>
+              <div class="thesis-pillars__foundation-content">
+                <p class="home-body">{body}</p>
+                <div class="home-code thesis-pillars__foundation-code">
+                  <Code code={codeExample} lang="scala" />
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <span class="home-eyebrow">{label}</span>
+              <h3 class="home-title">{title}</h3>
+              <p class="home-body">{body}</p>
+              {
+                codeExample && (
+                  <div class="home-code">
+                    <Code code={codeExample} lang="scala" />
+                  </div>
+                )
+              }
+            </>
+          )
+        }
       </article>
     ))
   }
@@ -54,5 +110,31 @@ const pillars = [
     --home-card-accent-dark: color-mix(in srgb, #79c8b2 18%, transparent);
     --home-card-accent-size: 38%;
     --home-card-bg-from: color-mix(in srgb, var(--sl-color-bg) 92%, white);
+  }
+
+  .thesis-pillars .home-code {
+    margin-top: 0.95rem;
+  }
+
+  .thesis-pillars__foundation-content {
+    display: grid;
+    gap: 1rem;
+    margin-top: 0.85rem;
+    align-items: start;
+  }
+
+  .thesis-pillars__foundation-content > * {
+    min-width: 0;
+  }
+
+  @media (min-width: 60rem) {
+    .thesis-pillars__foundation-content {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  .thesis-pillars__foundation-content .home-body,
+  .thesis-pillars__foundation .home-code {
+    margin-top: 0;
   }
 </style>

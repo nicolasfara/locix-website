@@ -2,9 +2,6 @@
 title: Home
 description: A capabilities-and-placement-types approach to unifying multitier, choreographic, and aggregate programming in one typed distributed model.
 template: splash
-prev: false
-next: false
-editUrl: false
 hero:
   title: |
     <span class="block max-w-[13ch] text-[clamp(2.5rem,2vw,5.5rem)] leading-[0.92] font-black tracking-[-0.045em]">
@@ -30,17 +27,16 @@ hero:
       variant: minimal
 ---
 
-import CtaGrid from '../../components/home/CtaGrid.astro';
 import EvidenceStrip from '../../components/home/EvidenceStrip.astro';
-import IntegratedShowcase from '../../components/home/IntegratedShowcase.astro';
-import ParadigmTabs from '../../components/home/ParadigmTabs.astro';
 import ThesisPillars from '../../components/home/ThesisPillars.astro';
 
 <EvidenceStrip />
 
 ## A Shared Foundation
 
-Distributed systems rarely fit a single abstraction. Real systems mix architectural placement, protocol coordination, and neighborhood-style collective behavior, yet most languages and frameworks force developers to pick one paradigm at a time or stitch several together manually. MpaCT explores a different line: keep those paradigms distinct at the language level, but give them a shared foundation in capabilities and placement types so they can be composed safely.
+Distributed systems rarely fit a single abstraction.
+Real systems mix architectural placement, protocol coordination, and neighborhood-style collective behavior, yet most languages and frameworks force developers to pick one paradigm at a time or stitch several together manually.
+MpaCT explores a different line: keep those paradigms distinct at the language level, but give them a shared foundation in capabilities and placement types so they can be composed safely.
 <ThesisPillars />
 
 {/* ## Integrated Showcase

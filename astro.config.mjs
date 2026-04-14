@@ -21,40 +21,40 @@ export default defineConfig({
 				themes: ['github-dark-dimmed', 'github-light'],
 			},
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/nicolasfara/locix' }],
-			sidebar: [
-				{
-					label: 'Overview',
-					items: [
-						{ label: 'Home', slug: 'index' },
-						{ label: 'Research', slug: 'research' },
-						{ label: 'Evidence', slug: 'evidence' },
-						{ label: 'Examples', slug: 'examples' },
-					],
-				},
-			],
-			// head: [
+			// sidebar: [
 			// 	{
-			// 		tag: 'meta',
-			// 		attrs: {
-			// 			property: 'og:image',
-			// 			content: 'https://locix.github.io/social/locix-preview.png',
-			// 		},
-			// 	},
-			// 	{
-			// 		tag: 'meta',
-			// 		attrs: {
-			// 			name: 'twitter:card',
-			// 			content: 'summary_large_image',
-			// 		},
-			// 	},
-			// 	{
-			// 		tag: 'meta',
-			// 		attrs: {
-			// 			name: 'twitter:image',
-			// 			content: 'https://locix.github.io/social/locix-preview.png',
-			// 		},
+			// 		label: 'Overview',
+			// 		items: [
+			// 			{ label: 'Home', slug: 'index' },
+			// 			{ label: 'Research', slug: 'research' },
+			// 			{ label: 'Evidence', slug: 'evidence' },
+			// 			{ label: 'Examples', slug: 'examples' },
+			// 		],
 			// 	},
 			// ],
+			head: [
+				{
+					tag: 'meta',
+					attrs: {
+						property: 'og:image',
+						content: 'https://locix.github.io/social/locix-preview.png',
+					},
+				},
+				{
+					tag: 'meta',
+					attrs: {
+						name: 'twitter:card',
+						content: 'summary_large_image',
+					},
+				},
+				{
+					tag: 'meta',
+					attrs: {
+						name: 'twitter:image',
+						content: 'https://locix.github.io/social/locix-preview.png',
+					},
+				},
+			],
 			customCss: ['./src/styles/global.css'],
 		}),
 	],

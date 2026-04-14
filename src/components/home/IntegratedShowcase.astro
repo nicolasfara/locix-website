@@ -11,7 +11,7 @@ const cityEvtExample = `def cityEvtApp(using Network, Placement, Multitier, Chor
   crowdMonitoring`;
 ---
 
-<section class="case-study-showcase home-card home-panel not-content">
+<section class="case-study-showcase home-card not-content">
   <div class="case-study-showcase__copy">
     <span class="home-eyebrow">Mixed-paradigm example</span>
     <h3 class="home-title">CityEvt is the shortest path to the thesis.</h3>
@@ -22,15 +22,15 @@ const cityEvtExample = `def cityEvtApp(using Network, Placement, Multitier, Chor
       line is about composition rather than isolated DSL features.
     </p>
     <div class="case-study-flow">
-      <article class="home-subcard">
+      <article class="case-study-flow__step">
         <strong>Registration</strong>
         <span>Multitier handoff from phones to cloud</span>
       </article>
-      <article class="home-subcard">
+      <article class="case-study-flow__step">
         <strong>Recommendations</strong>
         <span>Choreographic protocol across edge and cloud</span>
       </article>
-      <article class="home-subcard">
+      <article class="case-study-flow__step">
         <strong>Crowd monitoring</strong>
         <span>Collective sensing over neighboring smartphones</span>
       </article>
@@ -43,6 +43,16 @@ const cityEvtExample = `def cityEvtApp(using Network, Placement, Multitier, Chor
 
 <style>
   .case-study-showcase {
+    --home-card-radius: 1.75rem;
+    --home-card-padding: clamp(1.25rem, 3vw, 2rem);
+    --home-card-accent: color-mix(in srgb, var(--sl-color-text-accent) 10%, transparent);
+    --home-card-accent-dark: color-mix(in srgb, var(--sl-color-text-accent) 16%, transparent);
+    --home-card-shadow:
+      0 1px 0 color-mix(in srgb, white 5%, transparent) inset,
+      0 28px 60px -40px color-mix(in srgb, black 42%, transparent);
+    --home-card-shadow-dark:
+      0 1px 0 color-mix(in srgb, white 10%, transparent) inset,
+      0 28px 60px -40px color-mix(in srgb, black 72%, transparent);
     --home-card-accent-position: top right;
     display: grid;
     gap: 1.25rem;
@@ -68,10 +78,18 @@ const cityEvtExample = `def cityEvtApp(using Network, Placement, Multitier, Chor
     margin-top: 1.15rem;
   }
 
-  .case-study-flow .home-subcard {
+  .case-study-flow__step {
+    border: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 32%, transparent);
+    border-radius: 1rem;
+    padding: 0.9rem 1rem;
+    background: color-mix(in srgb, var(--sl-color-bg) 90%, white);
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+  }
+
+  :global([data-theme='dark']) .case-study-flow__step {
+    background: color-mix(in srgb, var(--sl-color-bg) 94%, white);
   }
 
   .case-study-flow span {
