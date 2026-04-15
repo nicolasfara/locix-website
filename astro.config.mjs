@@ -6,7 +6,7 @@ import { frameworkName } from './src/config/site.mjs';
 
 // https://astro.build/config
 export default defineConfig({
-	// site: 'https://locix.github.io',
+	site: 'https://locix-website.github.io',
 	integrations: [
 		starlight({
 			title: frameworkName,
