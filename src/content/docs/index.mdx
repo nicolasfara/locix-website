@@ -43,8 +43,7 @@ Real systems mix architectural placement, protocol coordination, and neighborhoo
 
 ## Safety Features
 
-The paper's safety story is not limited to one paradigm in isolation.
 {frameworkName} keeps placement explicit, capabilities scoped, and cross-paradigm handoffs typed, so composition preserves clear boundaries instead of weakening guarantees.
-The examples below show the intended feel of the system: small invalid patterns are rejected early, while the corresponding successful versions keep the interaction point explicit in the code.
+Scala's powerful type system and capture checking make it possible to enforce these properties at compile time, so you can be confident in your code's safety without sacrificing expressiveness.
 
 <SafetyFeatures />

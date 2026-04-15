@@ -22,8 +22,8 @@ const safetyFeatures = [
     title: 'Paradigm operations only work in their own scope.',
     body: 'Capabilities make authority visible. Paradigm operations are only available when the matching paradigm scope is open.',
     rejectedCode: `def bad(using Placement, Multitier) =
-  on[Client]: // rejected
-    asLocal(users)`,
+  on[Client]:
+    asLocal(users) // rejected`,
     acceptedCode: `def good(using Placement, Multitier) = Multitier:
   on[Client]:
     asLocal(users)`,
