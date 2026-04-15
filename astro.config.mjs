@@ -2,19 +2,20 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
+import { frameworkName } from './src/config/site.mjs';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://locix.github.io',
 	integrations: [
 		starlight({
-			title: 'MpaCT',
+			title: frameworkName,
 			description:
-				'MpaCT explores how capabilities and placement types can unify multitier, choreographic, and aggregate programming in one typed distributed model.',
+				`${frameworkName} explores how capabilities and placement types can unify multitier, choreographic, and aggregate programming in one typed distributed model.`,
 			logo: {
 				dark: './src/assets/locix-logo-dark.svg',
 				light: './src/assets/locix-logo-light.svg',
-				alt: 'MpaCT logo',
+				alt: `${frameworkName} logo`,
 			},
 			tagline: 'Capabilities and placement types for unified distributed programming.',
 			expressiveCode: {

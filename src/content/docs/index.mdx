@@ -30,6 +30,7 @@ hero:
 import EvidenceStrip from '../../components/home/EvidenceStrip.astro';
 import Foundations from '../../components/home/Foundations.astro';
 import SafetyFeatures from '../../components/home/SafetyFeatures.astro';
+import { frameworkName } from '../../config/site.mjs';
 
 <EvidenceStrip />
 
@@ -37,13 +38,13 @@ import SafetyFeatures from '../../components/home/SafetyFeatures.astro';
 
 Distributed systems rarely fit a single abstraction.
 Real systems mix architectural placement, protocol coordination, and neighborhood-style collective behavior, yet most languages and frameworks force developers to pick one paradigm at a time or stitch several together manually.
-MpaCT explores a different line: keep those paradigms distinct at the language level, but give them a shared foundation in capabilities and placement types so they can be composed safely.
+{frameworkName} explores a different line: keep those paradigms distinct at the language level, but give them a shared foundation in capabilities and placement types so they can be composed safely.
 <Foundations />
 
 ## Safety Features
 
 The paper’s safety story is not limited to one paradigm in isolation.
-MpaCT keeps placement explicit, capabilities scoped, and cross-paradigm handoffs typed, so composition preserves clear boundaries instead of weakening guarantees.
+{frameworkName} keeps placement explicit, capabilities scoped, and cross-paradigm handoffs typed, so composition preserves clear boundaries instead of weakening guarantees.
 The examples below show the intended feel of the system: small invalid patterns are rejected early, while the corresponding successful versions keep the interaction point explicit in the code.
 
 <SafetyFeatures />
