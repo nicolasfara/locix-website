@@ -5,7 +5,7 @@ const safetyFeatures = [
   {
     label: 'Placement safety',
     title: 'Peer boundaries stay explicit in the code.',
-    body: 'Placed values remain attached to named peers, so direct cross-peer access is rejected until the program uses an explicit interaction.',
+    body: 'The rejected example creates a token on the phone and then tries to consume it directly inside cloud code, as if location did not matter. Locix keeps the value attached to the peer that produced it, so the program must first expose the handoff as an explicit communication step before the cloud can use it.',
     rejectedCode: `def misplaced(using Placement) =
   val token: Token on Phone = on[Phone]:
     issueToken()
@@ -20,7 +20,7 @@ const safetyFeatures = [
   {
     label: 'Scoped capabilities',
     title: 'Paradigm operations only work in their own scope.',
-    body: 'Capabilities make authority visible. Paradigm operations are only available when the matching paradigm scope is open.',
+    body: 'The rejected case calls a multitier operation from ordinary placement code, which would blur where paradigm-specific authority begins and ends. By requiring the `Multitier` scope to be open, Locix makes it clear that `asLocal` is only valid while that programming model is actively in control.',
     rejectedCode: `def bad(using Placement, Multitier) =
   on[Client]:
     asLocal(users) // rejected`,
@@ -31,7 +31,7 @@ const safetyFeatures = [
   {
     label: 'Leak prevention',
     title: 'Invalid captures are stopped before runtime.',
-    body: 'A function cannot quietly carry peer-local data into a different peer context when that capture would become invalid after communication.',
+    body: 'Here the problem is more subtle: the function sent to the cloud closes over a message that still lives on the phone. If that closure were allowed to travel, invoking it remotely would depend on peer-local state that no longer exists in the new context, so Locix rejects the capture and forces the data itself to be transferred first.',
     rejectedCode: `def leaking(using Placement, Choreography) =
   Choreography:
     val msg: String on Phone = on[Phone]("hi")
@@ -48,7 +48,7 @@ const safetyFeatures = [
   {
     label: 'Safe composition',
     title: 'Composition keeps typed handoff points visible.',
-    body: 'Unsafe nested placement patterns are ruled out, while valid cross-paradigm handoffs still happen through placed values and explicit operations.',
+    body: 'The rejected composition mixes placement and communication in a nested way that hides when control moves between peers and makes the handoff hard to reason about. Locix instead requires the cloud value to be produced, communicated, and consumed in separate typed steps, so cross-paradigm composition stays readable and structurally safe.',
     rejectedCode: `def deadlocking(using Placement, Choreography) =
   Choreography:
     val msg: String on Phone = on[Phone]:

@@ -4,9 +4,11 @@ description: A capabilities-and-placement-types approach to unifying multitier, 
 template: splash
 hero:
   title: |
-    <span class="block max-w-[13ch] text-[clamp(2.5rem,2vw,5.5rem)] leading-[0.92] font-black tracking-[-0.045em]">
-      One typed framework for
-      <span class="text-[var(--sl-color-text-accent)]">three distributed paradigms.</span>
+    <span class="block max-w-[18ch] text-[clamp(2.5rem,2vw,5.5rem)] leading-[1.0] font-black tracking-[-0.045em]">
+      Build
+      <span class="text-[var(--sl-color-text-accent)]">modern, unified,</span> and
+      <span class="text-[var(--sl-color-text-accent)]">safe</span>
+      distributed systems with ease.
     </span>
   tagline: |
     <span class="block max-w-3xl text-base leading-7 text-[var(--sl-color-gray-2)] sm:text-lg">
@@ -33,19 +35,21 @@ import Publications from '../../components/home/Publications.astro';
 import SafetyFeatures from '../../components/home/SafetyFeatures.astro';
 import { frameworkName } from '../../config/site.mjs';
 
-<EvidenceStrip />
+{/* <EvidenceStrip /> */}
 
 ## A Shared Foundation
 
-Distributed systems rarely fit a single abstraction.
-Real systems mix architectural placement, protocol coordination, and neighborhood-style collective behavior, yet most languages and frameworks force developers to pick one paradigm at a time or stitch several together manually.
-{frameworkName} explores a different line: keep those paradigms distinct at the language level, but give them a shared foundation in capabilities and placement types so they can be composed safely.
+**Distributed systems are easier to build when the right abstractions can work together.**
+Real applications often combine **architectural placement**, **protocol coordination**, and *neighborhood-style collective behavior*, and {frameworkName} lets you bring those styles together in **one cohesive model**.
+By building on **capabilities** and **placement types**, {frameworkName} helps you compose them naturally while keeping boundaries **clear**, interactions **safe**, and the overall design *easier to reason about*.
 <Foundations />
 
 ## Safety Features
 
-{frameworkName} keeps placement explicit, capabilities scoped, and cross-paradigm handoffs typed, so composition preserves clear boundaries instead of weakening guarantees.
-Scala's powerful type system and capture checking make it possible to enforce these properties at compile time, so you can be confident in your code's safety without sacrificing expressiveness.
+{frameworkName} keeps **placement explicit**, **capabilities scoped**, and **cross-paradigm handoffs typed**, so composition preserves clear boundaries instead of weakening guarantees.
+That means values remain attached to the peers that own them, paradigm-specific operations are only available inside the right context, and data or behavior **cannot silently cross locations** without an explicit typed step.
+Instead of discovering mistakes later as *protocol bugs*, *invalid captures*, or *misplaced computations* at runtime, you get **direct feedback from the compiler** at the exact point where the boundary is being violated.
+Scala's type system and capture checking make these guarantees practical to express and enforce at compile time, letting you combine **multitier**, **choreographic**, and **collective** code with stronger safety and *far less defensive boilerplate*.
 
 <SafetyFeatures />
 
