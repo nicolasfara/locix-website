@@ -1,103 +1,125 @@
 ---
-const publications = [
-  {
-    label: 'Placeholder preprint',
-    title: 'A Placeholder Title for a Modern Distributed System Framework',
-    authors: 'Author One and Author Two and Author Three',
-    venue: 'Venue or Journal Name',
-    year: '2026',
-    abstract:
-      'Replace this placeholder with the short publication summary you want visitors to read before copying the citation.',
-    bibtex: `@inproceedings{placeholder2026unified,
-  title     = {A Placeholder Title for a Modern Distributed System Framework},
-  author    = {Author One and Author Two and Author Three},
-  booktitle = {Venue or Journal Name},
-  year      = {2026},
-  note      = {Placeholder entry}
-}`,
-  },
-  {
-    label: 'Placeholder article',
-    title: 'Another Placeholder Paper on Capabilities and Placement Types',
-    authors: 'Author A and Author B',
-    venue: 'Proceedings Placeholder',
-    year: '2025',
-    abstract:
-      'Use this card for a second publication, an accepted version, or a companion paper once the real citation details are ready.',
-    bibtex: `@article{placeholder2025capabilities,
-  title   = {Another Placeholder Paper on Capabilities and Placement Types},
-  author  = {Author A and Author B},
-  journal = {Proceedings Placeholder},
-  year    = {2025},
-  note    = {Placeholder entry}
-}`,
-  },
-  {
-    label: 'Placeholder thesis',
-    title: 'Placeholder Thesis on Typed Cross-Paradigm Composition',
-    authors: 'Student Name',
-    venue: 'University Name',
-    year: '2024',
-    abstract:
-      'This can also hold a thesis, tech report, workshop version, or artifact paper while the final bibliography is still in progress.',
-    bibtex: `@phdthesis{placeholder2024thesis,
-  title  = {Placeholder Thesis on Typed Cross-Paradigm Composition},
-  author = {Student Name},
-  school = {University Name},
-  year   = {2024},
-  note   = {Placeholder entry}
-}`,
-  },
+interface Publication {
+  label: string;
+  title: string;
+  authors: string;
+  venue: string;
+  year: string;
+  abstract: string;
+  bibtex: string;
+}
+const publications: Publication[] = [
+//   {
+//     label: 'Placeholder preprint',
+//     title: 'A Placeholder Title for a Modern Distributed System Framework',
+//     authors: 'Author One and Author Two and Author Three',
+//     venue: 'Venue or Journal Name',
+//     year: '2026',
+//     abstract:
+//       'Replace this placeholder with the short publication summary you want visitors to read before copying the citation.',
+//     bibtex: `@inproceedings{placeholder2026unified,
+//   title     = {A Placeholder Title for a Modern Distributed System Framework},
+//   author    = {Author One and Author Two and Author Three},
+//   booktitle = {Venue or Journal Name},
+//   year      = {2026},
+//   note      = {Placeholder entry}
+// }`,
+//   },
+//   {
+//     label: 'Placeholder article',
+//     title: 'Another Placeholder Paper on Capabilities and Placement Types',
+//     authors: 'Author A and Author B',
+//     venue: 'Proceedings Placeholder',
+//     year: '2025',
+//     abstract:
+//       'Use this card for a second publication, an accepted version, or a companion paper once the real citation details are ready.',
+//     bibtex: `@article{placeholder2025capabilities,
+//   title   = {Another Placeholder Paper on Capabilities and Placement Types},
+//   author  = {Author A and Author B},
+//   journal = {Proceedings Placeholder},
+//   year    = {2025},
+//   note    = {Placeholder entry}
+// }`,
+//   },
+//   {
+//     label: 'Placeholder thesis',
+//     title: 'Placeholder Thesis on Typed Cross-Paradigm Composition',
+//     authors: 'Student Name',
+//     venue: 'University Name',
+//     year: '2024',
+//     abstract:
+//       'This can also hold a thesis, tech report, workshop version, or artifact paper while the final bibliography is still in progress.',
+//     bibtex: `@phdthesis{placeholder2024thesis,
+//   title  = {Placeholder Thesis on Typed Cross-Paradigm Composition},
+//   author = {Student Name},
+//   school = {University Name},
+//   year   = {2024},
+//   note   = {Placeholder entry}
+// }`,
+//   },
 ];
 ---
 
 <section class="publications not-content">
   {
-    publications.map(({ label, title, authors, venue, year, abstract, bibtex }) => (
-      <article class="publication-band" data-bib-entry={encodeURIComponent(bibtex)}>
+    publications.length > 0 ? (
+      publications.map(({ label, title, authors, venue, year, abstract, bibtex }) => (
+        <article class="publication-band" data-bib-entry={encodeURIComponent(bibtex)}>
+          <div class="publication-entry__content">
+            <div class="publication-entry__header">
+              <span class="publication-entry__label">{label}</span>
+              <button
+                type="button"
+                class="publication-card__copy"
+                data-bib-copy
+                aria-label="Copy BibTeX citation"
+                title="Copy BibTeX citation"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="publication-card__copy-icon">
+                  <path
+                    d="M8.75 8.75h8.5a2 2 0 0 1 2 2v8.5a2 2 0 0 1-2 2h-8.5a2 2 0 0 1-2-2v-8.5a2 2 0 0 1 2-2Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.6"
+                  />
+                  <path
+                    d="M5.75 15.25h-.5a2 2 0 0 1-2-2v-8.5a2 2 0 0 1 2-2h8.5a2 2 0 0 1 2 2v.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.6"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <p class="publication-entry__citation">
+              <span class="publication-entry__authors">{authors}, </span>
+              <span class="publication-entry__title">"{title}," </span>
+              <span class="publication-entry__venue">{venue}, </span>
+              <span class="publication-entry__year">{year}.</span>
+            </p>
+
+            <p class="publication-entry__abstract">{abstract}</p>
+            <p class="publication-card__status" data-bib-status aria-live="polite"></p>
+          </div>
+        </article>
+      ))
+    ) : (
+      <article class="publication-band publication-band--empty">
         <div class="publication-entry__content">
           <div class="publication-entry__header">
-            <span class="publication-entry__label">{label}</span>
-            <button
-              type="button"
-              class="publication-card__copy"
-              data-bib-copy
-              aria-label="Copy BibTeX citation"
-              title="Copy BibTeX citation"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true" class="publication-card__copy-icon">
-                <path
-                  d="M8.75 8.75h8.5a2 2 0 0 1 2 2v8.5a2 2 0 0 1-2 2h-8.5a2 2 0 0 1-2-2v-8.5a2 2 0 0 1 2-2Z"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.6"
-                />
-                <path
-                  d="M5.75 15.25h-.5a2 2 0 0 1-2-2v-8.5a2 2 0 0 1 2-2h8.5a2 2 0 0 1 2 2v.5"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.6"
-                />
-              </svg>
-            </button>
+            <span class="publication-entry__label">Coming soon</span>
           </div>
-
           <p class="publication-entry__citation">
-            <span class="publication-entry__authors">{authors}, </span>
-            <span class="publication-entry__title">"{title}," </span>
-            <span class="publication-entry__venue">{venue}, </span>
-            <span class="publication-entry__year">{year}.</span>
+            Publications will appear here once papers, preprints, or companion artifacts are available.
           </p>
-
-          <p class="publication-entry__abstract">{abstract}</p>
-          <p class="publication-card__status" data-bib-status aria-live="polite"></p>
         </div>
       </article>
-    ))
+    )
   }
 </section>
 
@@ -122,6 +144,10 @@ const publications = [
     padding: 1rem 0;
     border-bottom: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 28%, transparent);
     font-family: var(--publication-font);
+  }
+
+  .publication-band--empty {
+    color: var(--sl-color-gray-2);
   }
 
   .publication-entry__content {
