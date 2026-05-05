@@ -16,6 +16,62 @@ html[data-has-hero] {
 }
 
 @layer components {
+  .brand-name {
+    --brand-camil-ink: color-mix(in srgb, var(--sl-color-text-accent) 64%, var(--sl-color-text));
+    --brand-camil-glow: color-mix(in srgb, var(--sl-color-text-accent) 20%, transparent);
+    position: relative;
+    display: inline-block;
+    color: var(--brand-camil-ink);
+    font-weight: 850;
+    letter-spacing: 0;
+    white-space: nowrap;
+    text-shadow: 0 0.35rem 1.25rem var(--brand-camil-glow);
+  }
+
+  .brand-name > span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand-name > span > span:nth-child(1),
+  .brand-name > span > span:nth-child(3),
+  .brand-name > span > span:nth-child(5) {
+    color: color-mix(in srgb, var(--sl-color-text-accent) 78%, var(--sl-color-white));
+  }
+
+  .brand-name > span > span:nth-child(2),
+  .brand-name > span > span:nth-child(4) {
+    color: color-mix(in srgb, #79c8b2 64%, var(--sl-color-text));
+    font-weight: 720;
+  }
+
+  .brand-name::after {
+    content: '';
+    position: absolute;
+    right: -0.08em;
+    bottom: 0.02em;
+    left: -0.08em;
+    height: 0.34em;
+    border-radius: 9999px;
+    background: color-mix(in srgb, #79c8b2 24%, transparent);
+    transform: rotate(-1.5deg);
+  }
+
+  .brand-name--hero {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    margin-bottom: 0.28em;
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    line-height: 0.9;
+    text-shadow: 0 1rem 2.5rem var(--brand-camil-glow);
+  }
+
+  [data-theme='dark'] .brand-name {
+    --brand-camil-ink: color-mix(in srgb, var(--sl-color-text-accent) 68%, var(--sl-color-white));
+    --brand-camil-glow: color-mix(in srgb, var(--sl-color-text-accent) 24%, transparent);
+  }
+
   .home-grid {
     display: grid;
     gap: 1rem;

@@ -1,6 +1,6 @@
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { frameworkName } from '../../config/site.mjs';
+import BrandName from '../BrandName.astro';
 import ResponsiveCode from './ResponsiveCode.astro';
 
 const choreographyExample = `object PingPong:
@@ -54,7 +54,7 @@ const collectiveExample = `object AggregateCounter:
     <h3 class="home-title">Three paradigms remain distinct, but they no longer live in separate worlds.</h3>
     <p class="home-body">
       The isolated examples below still matter because each paradigm keeps its own vocabulary.
-      {frameworkName} is interesting because these pieces can also be composed in the same typed framework.
+      <BrandName /> is interesting because these pieces can also be composed in the same typed framework.
     </p>
   </div>
 

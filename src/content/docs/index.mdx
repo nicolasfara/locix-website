@@ -5,6 +5,7 @@ template: splash
 hero:
   title: |
     <span class="block max-w-[18ch] text-[clamp(2.5rem,2vw,5.5rem)] leading-[1.0] font-black tracking-[-0.045em]">
+      <span class="brand-name brand-name--hero" aria-label="CaMiL"><span aria-hidden="true"><span>C</span><span>a</span><span>M</span><span>i</span><span>L</span></span></span>
       Multiparty Programming for <span class="text-[var(--sl-color-text-accent)]">modern</span> and <span class="text-[var(--sl-color-text-accent)]">safe</span> distributed systems development.
     </span>
   tagline: |
@@ -35,20 +36,20 @@ import EvidenceStrip from '../../components/home/EvidenceStrip.astro';
 import Foundations from '../../components/home/Foundations.astro';
 import Publications from '../../components/home/Publications.astro';
 import SafetyFeatures from '../../components/home/SafetyFeatures.astro';
-import { frameworkName } from '../../config/site.mjs';
+import BrandName from '../../components/BrandName.astro';
 
 {/* <EvidenceStrip /> */}
 
 ## A Shared Foundation
 
-{frameworkName} brings **architectural placement**, **protocol coordination**, and *neighborhood-style collective behavior* together in **one cohesive model**.
+<BrandName /> brings **architectural placement**, **protocol coordination**, and *neighborhood-style collective behavior* together in **one cohesive model**.
 This framework lets you combine these styles naturally instead of treating them as separate approaches with separate abstractions.
-By building on **capabilities** and **placement types**, {frameworkName} helps you compose them naturally while keeping boundaries **clear**, interactions **safe**, and the overall design *easier to reason about*.
+By building on **capabilities** and **placement types**, <BrandName /> helps you compose them naturally while keeping boundaries **clear**, interactions **safe**, and the overall design *easier to reason about*.
 <Foundations />
 
 ## Safety Features
 
-{frameworkName} keeps **placement explicit**, **capabilities scoped**, and **cross-paradigm handoffs typed**, so composition preserves clear boundaries instead of weakening guarantees.
+<BrandName /> keeps **placement explicit**, **capabilities scoped**, and **cross-paradigm handoffs typed**, so composition preserves clear boundaries instead of weakening guarantees.
 That means values remain attached to the peers that own them, paradigm-specific operations are only available inside the right context, and data or behavior **cannot silently cross locations** without an explicit typed step.
 Instead of discovering mistakes later as *protocol bugs*, *invalid captures*, or *misplaced computations* at runtime, you get **direct feedback from the compiler** at the exact point where the boundary is being violated.
 Scala's type system and capture checking make these guarantees practical to express and enforce at compile time, letting you combine **multitier**, **choreographic**, and **collective** code with stronger safety and *far less defensive boilerplate*.
