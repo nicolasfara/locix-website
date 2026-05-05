@@ -1,1 +1,1 @@
-export const frameworkName = 'LociX';
+export const frameworkName = 'CaMiL';
