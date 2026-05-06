@@ -463,6 +463,18 @@ html[data-has-hero] {
     content: none;
   }
 
+  .content-panel .hero .stack {
+    text-align: start;
+  }
+
+  .content-panel .hero .copy {
+    align-items: flex-start;
+  }
+
+  .content-panel .hero .actions {
+    justify-content: flex-start;
+  }
+
   .content-panel .hero > img {
     width: 100%;
     padding: 0.9rem;
