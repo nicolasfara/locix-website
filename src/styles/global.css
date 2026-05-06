@@ -413,7 +413,13 @@ html[data-has-hero] {
   .home-body {
     margin: 0.85rem 0 0;
     color: var(--sl-color-gray-2);
+    font-size: 1.04rem;
     line-height: 1.55;
+  }
+
+  .sl-markdown-content p:not(:where(.not-content *)) {
+    font-size: 1.04rem;
+    line-height: 1.68;
   }
 
   .home-stat-value {
