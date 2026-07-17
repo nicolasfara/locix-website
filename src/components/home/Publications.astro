@@ -265,8 +265,8 @@ const publications: Publication[] = [
   }
 </style>
 
-<script>
-  async function copyBibText(text: string) {
+<script is:inline>
+  const copyBibText = async (text) => {
     if (navigator.clipboard?.writeText) {
       await navigator.clipboard.writeText(text);
       return;
@@ -279,38 +279,34 @@ const publications: Publication[] = [
     textarea.select();
     document.execCommand('copy');
     textarea.remove();
+  };
+
+  for (const card of document.querySelectorAll('.publication-band')) {
+    const button = card.querySelector('[data-bib-copy]');
+    const status = card.querySelector('[data-bib-status]');
+
+    if (!(card instanceof HTMLElement) || !(button instanceof HTMLButtonElement) || !status) continue;
+
+    const bibtex = decodeURIComponent(card.dataset.bibEntry ?? '').trim();
+    const defaultAriaLabel = button.getAttribute('aria-label') ?? 'Copy BibTeX citation';
+    const defaultTitle = button.getAttribute('title') ?? defaultAriaLabel;
+
+    button.addEventListener('click', async () => {
+      try {
+        await copyBibText(bibtex);
+        button.setAttribute('aria-label', 'BibTeX copied');
+        button.setAttribute('title', 'BibTeX copied');
+        status.textContent = 'Copied to clipboard';
+      } catch {
+        button.setAttribute('aria-label', 'Copy failed');
+        button.setAttribute('title', 'Copy failed');
+        status.textContent = 'Clipboard unavailable';
+      }
+      window.setTimeout(() => {
+        button.setAttribute('aria-label', defaultAriaLabel);
+        button.setAttribute('title', defaultTitle);
+        status.textContent = '';
+      }, 1800);
+    });
   }
-
-  function initPublications() {
-    for (const card of document.querySelectorAll('.publication-band')) {
-      const button = card.querySelector('[data-bib-copy]');
-      const status = card.querySelector('[data-bib-status]');
-
-      if (!(card instanceof HTMLElement) || !(button instanceof HTMLButtonElement) || !status) continue;
-
-      const bibtex = decodeURIComponent(card.dataset.bibEntry ?? '').trim();
-      const defaultAriaLabel = button.getAttribute('aria-label') ?? 'Copy BibTeX citation';
-      const defaultTitle = button.getAttribute('title') ?? defaultAriaLabel;
-
-      button.addEventListener('click', async () => {
-        try {
-          await copyBibText(bibtex);
-          button.setAttribute('aria-label', 'BibTeX copied');
-          button.setAttribute('title', 'BibTeX copied');
-          status.textContent = 'Copied to clipboard';
-        } catch {
-          button.setAttribute('aria-label', 'Copy failed');
-          button.setAttribute('title', 'Copy failed');
-          status.textContent = 'Clipboard unavailable';
-        }
-        window.setTimeout(() => {
-          button.setAttribute('aria-label', defaultAriaLabel);
-          button.setAttribute('title', defaultTitle);
-          status.textContent = '';
-        }, 1800);
-      });
-    }
-  }
-
-  document.addEventListener('astro:page-load', initPublications);
 </script>
