@@ -1,35 +1,44 @@
-# MpaCT Website
+# CaMiL Website
 
-This repository contains the public website for MpaCT, the Scala framework used to communicate a research line on unifying multitier, choreographic, and aggregate programming through capabilities and placement types.
+Public website for **CaMiL**, a Scala framework for multiparty computation exploring how capabilities and placement types can unify multitier, choreographic, and collective programming in one typed distributed model.
 
-## Site Structure
+Built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.build).
 
-- `src/data/brand.js`: shared public brand name and metadata.
-- `src/content/docs/index.mdx`: homepage and public positioning.
-- `src/content/docs/research.mdx`: research framing, terminology bridge, and dissemination kit.
-- `src/content/docs/evidence.mdx`: paper-backed and repo-backed public claims.
-- `src/content/docs/examples.mdx`: curated entry points into the code artifact.
-- `src/assets/locix-thesis-map.svg`: thesis graphic used on the homepage.
-- `public/social/`: generated share assets.
-- `public/papers/`: downloadable paper artifacts served by the site.
+## Project Structure
+
+```
+src/
+├── assets/              # Logos, fonts, and graphics
+├── components/
+│   ├── BrandName.astro  # Styled CaMiL logotype
+│   └── home/            # Homepage section components
+│       ├── EvidenceStrip.astro
+│       ├── Foundations.astro
+│       ├── Publications.astro
+│       ├── SafetyFeatures.astro
+│       └── ...
+├── config/
+│   └── site.ts          # Shared brand name and site metadata
+├── content/
+│   └── docs/
+│       └── index.mdx    # Homepage content
+└── styles/
+    └── global.css       # Theme, fonts, and component styles
+```
 
 ## Commands
 
 ```bash
-npm install
-npm run dev
-npm run build
-npm run preview
+npm install       # Install dependencies
+npm run dev       # Start dev server at localhost:4321
+npm run build     # Build for production
+npm run preview   # Preview the production build
 ```
 
-## Public Framing Rules
+## Configuration
 
-Use `MpaCT` as the public framework name.
+The framework name is defined in `src/config/site.ts`. Update it there to propagate the change across all components and the Starlight config.
 
-When the display name needs to change, update `src/data/brand.js` first.
+## Deployment
 
-When earlier naming needs to be mentioned, use the canonical bridge sentence:
-
-> This site presents the framework as MpaCT; earlier drafts may still use a previous working title.
-
-Do not introduce quantitative claims on the site unless they are traceable to the submitted paper or the public repository.
+The site is deployed to GitHub Pages via the workflow in `.github/workflows/github-pages.yml`. It is served under `https://nicolasfarabegoli.it/locix-website/`.
