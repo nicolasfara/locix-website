@@ -263,43 +263,42 @@ def example(input: Data on Alice)(using
   }
 </style>
 
-<script is:inline>
-  for (const root of document.querySelectorAll('[data-foundation-switcher]')) {
-    const dots = Array.from(root.querySelectorAll('[data-foundation-dot]'));
-    const copyPanels = Array.from(root.querySelectorAll('[data-foundation-copy]'));
-    const codePanels = Array.from(root.querySelectorAll('[data-foundation-code]'));
+<script>
+  function initFoundationSwitchers() {
+    for (const root of document.querySelectorAll('[data-foundation-switcher]')) {
+      const dots = Array.from(root.querySelectorAll('[data-foundation-dot]'));
+      const copyPanels = Array.from(root.querySelectorAll('[data-foundation-copy]'));
+      const codePanels = Array.from(root.querySelectorAll('[data-foundation-code]'));
 
-    if (!dots.length || copyPanels.length !== codePanels.length || !copyPanels.length) continue;
+      if (!dots.length || copyPanels.length !== codePanels.length || !copyPanels.length) continue;
 
-    let activeIndex = dots.findIndex((dot) => dot.getAttribute('aria-pressed') === 'true');
+      let activeIndex = dots.findIndex((dot) => dot.getAttribute('aria-pressed') === 'true');
+      if (activeIndex < 0) activeIndex = 0;
 
-    if (activeIndex < 0) activeIndex = 0;
+      const syncPanels = (panels: Element[], index: number) => {
+        panels.forEach((panel, panelIndex) => {
+          const isActive = panelIndex === index;
+          (panel as HTMLElement).dataset.active = isActive ? 'true' : 'false';
+          panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        });
+      };
 
-    const syncPanels = (panels, index) => {
-      panels.forEach((panel, panelIndex) => {
-        const isActive = panelIndex === index;
-        panel.dataset.active = isActive ? 'true' : 'false';
-        panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      const applyState = (index: number) => {
+        activeIndex = index;
+        dots.forEach((dot, dotIndex) => {
+          dot.setAttribute('aria-pressed', dotIndex === index ? 'true' : 'false');
+        });
+        syncPanels(copyPanels, index);
+        syncPanels(codePanels, index);
+      };
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => applyState(index));
       });
-    };
 
-    const applyState = (index) => {
-      activeIndex = index;
-
-      dots.forEach((dot, dotIndex) => {
-        dot.setAttribute('aria-pressed', dotIndex === index ? 'true' : 'false');
-      });
-
-      syncPanels(copyPanels, index);
-      syncPanels(codePanels, index);
-    };
-
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        applyState(index);
-      });
-    });
-
-    applyState(activeIndex);
+      applyState(activeIndex);
+    }
   }
+
+  document.addEventListener('astro:page-load', initFoundationSwitchers);
 </script>

@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
-import { frameworkName } from './src/config/site.mjs';
+import { frameworkName } from './src/config/site.ts';
 
 // https://astro.build/config
 export default defineConfig({

@@ -1,12 +1,15 @@
 ---
-import { frameworkName } from '../config/site.mjs';
+import { frameworkName } from '../config/site.ts';
 
-const letters = frameworkName.split('');
-const className = Astro.props.class ? `brand-name ${Astro.props.class}` : 'brand-name';
+interface Props {
+  class?: string;
+}
+
+const { class: extraClass } = Astro.props;
 ---
 
-<span class={className} aria-label={frameworkName}>
+<span class:list={['brand-name', extraClass]} aria-label={frameworkName}>
   <span aria-hidden="true">
-    {letters.map((letter) => <span>{letter}</span>)}
+    {frameworkName.split('').map((letter) => <span>{letter}</span>)}
   </span>
 </span>

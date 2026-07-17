@@ -4,18 +4,18 @@ description: A capabilities-and-placement-types approach to unifying multitier, 
 template: splash
 hero:
   title: |
-    <span class="block max-w-[18ch] text-[clamp(2.5rem,2vw,5.5rem)] leading-[1.0] font-black tracking-[-0.045em]">
+    <span class="hero-title">
       <span class="brand-name brand-name--hero" aria-label="CaMiL"><span aria-hidden="true"><span>C</span><span>a</span><span>M</span><span>i</span><span>L</span></span></span>
       Multiparty Programming for <span class="hero-theme-accent">modern</span> and <span class="hero-theme-accent">safe</span> distributed systems development.
     </span>
   tagline: |
-    <span class="block max-w-3xl text-base leading-7 text-[var(--sl-color-gray-2)] sm:text-lg">
+    <span class="hero-tagline">
       A Scala framework for multiparty computation,
-      <span class="font-semibold text-[var(--sl-color-white)] decoration-[var(--sl-color-text-accent)] underline underline-offset-4">safe by design</span>
+      <span class="hero-tagline__accent">safe by design</span>
       through capabilities and placement types across
-      <span class="italic font-semibold text-[var(--sl-color-text-accent)]">multitier</span>,
-      <span class="italic font-semibold text-[var(--sl-color-text-accent)]">choreography</span>, and
-      <span class="italic font-semibold text-[var(--sl-color-text-accent)]">collective</span>
+      <span class="hero-tagline__keyword">multitier</span>,
+      <span class="hero-tagline__keyword">choreography</span>, and
+      <span class="hero-tagline__keyword">collective</span>
       programming.
     </span>
   image:
@@ -32,13 +32,10 @@ hero:
       variant: minimal
 ---
 
-import EvidenceStrip from '../../components/home/EvidenceStrip.astro';
 import Foundations from '../../components/home/Foundations.astro';
 import Publications from '../../components/home/Publications.astro';
 import SafetyFeatures from '../../components/home/SafetyFeatures.astro';
 import BrandName from '../../components/BrandName.astro';
-
-{/* <EvidenceStrip /> */}
 
 ## A Shared Foundation
 
